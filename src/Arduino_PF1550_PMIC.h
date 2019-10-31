@@ -24,6 +24,7 @@
  ******************************************************************************/
 
 #include "PF1550/PF1550_IO.h"
+#include "PF1550/PF1550_Const.h"
 
 /******************************************************************************
    CLASS DECLARATION
@@ -36,6 +37,8 @@ public:
   Arduino_PF1550_PMIC();
 
   int begin();
+
+  void setLDO1Voltage(PF1550::LDO_1_Voltage const ldo1_volt);
 
 private:
 
