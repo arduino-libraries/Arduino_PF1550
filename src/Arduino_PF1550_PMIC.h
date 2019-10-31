@@ -38,7 +38,9 @@ public:
 
   int begin();
 
-  void setLDO1Voltage(PF1550::LDO_1_Voltage const ldo1_volt);
+  void setLDO1Voltage   (PF1550::Ldo1Voltage const ldo1_volt);
+  void turnLDO1On       (PF1550::Ldo1Mode const mode);
+  void turnLDO1Off      (PF1550::Ldo1Mode const mode);
 
 private:
 

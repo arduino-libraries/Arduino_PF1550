@@ -33,10 +33,18 @@ namespace PF1550
 {
 
 /******************************************************************************
+   DEFINE
+ ******************************************************************************/
+
+#define REG_LDO1_CTRL_VLDO1_EN_bp       (0)
+#define REG_LDO1_CTRL_VLDO1_STBY_EN_bp  (1)
+#define REG_LDO1_CTRL_VLDO1_OMODE_bp    (2)
+
+/******************************************************************************
    TYPEDEF
  ******************************************************************************/
 
-enum class LDO_1_Voltage : uint8_t
+enum class Ldo1Voltage : uint8_t
 {
   V_0_75 = 0x00,
   V_0_80 = 0x01,
@@ -70,6 +78,13 @@ enum class LDO_1_Voltage : uint8_t
   V_3_10 = 0x1D,
   V_3_20 = 0x1E,
   V_3_30 = 0x1F,
+};
+
+enum class Ldo1Mode : uint8_t
+{
+  Normal  = REG_LDO1_CTRL_VLDO1_EN_bp,
+  Standby = REG_LDO1_CTRL_VLDO1_STBY_EN_bp,
+  Sleep   = REG_LDO1_CTRL_VLDO1_OMODE_bp,
 };
 
 /******************************************************************************

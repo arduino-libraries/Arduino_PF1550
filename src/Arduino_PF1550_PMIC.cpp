@@ -41,9 +41,19 @@ int Arduino_PF1550_PMIC::begin()
   return 1;
 }
 
-void Arduino_PF1550_PMIC::setLDO1Voltage(PF1550::LDO_1_Voltage const ldo1_volt)
+void Arduino_PF1550_PMIC::setLDO1Voltage(PF1550::Ldo1Voltage const ldo1_volt)
 {
   _io.writeRegister(PF1550::Register::LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
+}
+
+void Arduino_PF1550_PMIC::turnLDO1On(PF1550::Ldo1Mode const mode)
+{
+  _io.setBit(PF1550::Register::LDO1_CTRL, static_cast<uint8_t>(mode));
+}
+
+void Arduino_PF1550_PMIC::turnLDO1Off(PF1550::Ldo1Mode const mode)
+{
+  _io.clrBit(PF1550::Register::LDO1_CTRL, static_cast<uint8_t>(mode));
 }
 
 /******************************************************************************
