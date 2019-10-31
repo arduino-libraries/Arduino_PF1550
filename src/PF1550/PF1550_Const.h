@@ -36,9 +36,15 @@ namespace PF1550
    DEFINE
  ******************************************************************************/
 
+/* LDO1_CTRL ******************************************************************/
 #define REG_LDO1_CTRL_VLDO1_EN_bp       (0)
 #define REG_LDO1_CTRL_VLDO1_STBY_EN_bp  (1)
 #define REG_LDO1_CTRL_VLDO1_OMODE_bp    (2)
+
+/* LDO2_CTRL ******************************************************************/
+#define REG_LDO2_CTRL_VLDO2_EN_bp       (0)
+#define REG_LDO2_CTRL_VLDO2_STBY_EN_bp  (1)
+#define REG_LDO2_CTRL_VLDO2_OMODE_bp    (2)
 
 /******************************************************************************
    TYPEDEF
@@ -85,6 +91,33 @@ enum class Ldo1Mode : uint8_t
   Normal  = REG_LDO1_CTRL_VLDO1_EN_bp,
   Standby = REG_LDO1_CTRL_VLDO1_STBY_EN_bp,
   Sleep   = REG_LDO1_CTRL_VLDO1_OMODE_bp,
+};
+
+enum class Ldo2Voltage : uint8_t
+{
+  V_1_80 = 0x00,
+  V_1_90 = 0x01,
+  V_2_00 = 0x02,
+  V_2_10 = 0x03,
+  V_2_20 = 0x04,
+  V_2_30 = 0x05,
+  V_2_40 = 0x06,
+  V_2_50 = 0x07,
+  V_2_60 = 0x08,
+  V_2_70 = 0x09,
+  V_2_80 = 0x0A,
+  V_2_90 = 0x0B,
+  V_3_00 = 0x0C,
+  V_3_10 = 0x0D,
+  V_3_20 = 0x0E,
+  V_3_30 = 0x0F,
+};
+
+enum class Ldo2Mode : uint8_t
+{
+  Normal  = REG_LDO2_CTRL_VLDO2_EN_bp,
+  Standby = REG_LDO2_CTRL_VLDO2_STBY_EN_bp,
+  Sleep   = REG_LDO2_CTRL_VLDO2_OMODE_bp,
 };
 
 /******************************************************************************
