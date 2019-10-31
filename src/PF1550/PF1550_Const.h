@@ -46,6 +46,11 @@ namespace PF1550
 #define REG_LDO2_CTRL_VLDO2_STBY_EN_bp  (1)
 #define REG_LDO2_CTRL_VLDO2_OMODE_bp    (2)
 
+/* LDO3_CTRL ******************************************************************/
+#define REG_LDO3_CTRL_VLDO3_EN_bp       (0)
+#define REG_LDO3_CTRL_VLDO3_STBY_EN_bp  (1)
+#define REG_LDO3_CTRL_VLDO3_OMODE_bp    (2)
+
 /******************************************************************************
    TYPEDEF
  ******************************************************************************/
@@ -118,6 +123,15 @@ enum class Ldo2Mode : uint8_t
   Normal  = REG_LDO2_CTRL_VLDO2_EN_bp,
   Standby = REG_LDO2_CTRL_VLDO2_STBY_EN_bp,
   Sleep   = REG_LDO2_CTRL_VLDO2_OMODE_bp,
+};
+
+typedef Ldo1Voltage Ldo3Voltage; /* LDO1 and LDO3 have the same voltage steps */
+
+enum class Ldo3Mode : uint8_t
+{
+  Normal  = REG_LDO3_CTRL_VLDO3_EN_bp,
+  Standby = REG_LDO3_CTRL_VLDO3_STBY_EN_bp,
+  Sleep   = REG_LDO3_CTRL_VLDO3_OMODE_bp,
 };
 
 /******************************************************************************

@@ -10,6 +10,10 @@ void setup() {
   PMIC.setLDO2Voltage(PF1550::Ldo2Voltage::V_1_80);
   PMIC.turnLDO2On(PF1550::Ldo2Mode::Normal);
   PMIC.turnLDO2On(PF1550::Ldo2Mode::Standby);
+
+  PMIC.setLDO3Voltage(PF1550::Ldo3Voltage::V_1_20);
+  PMIC.turnLDO3On(PF1550::Ldo3Mode::Normal);
+  PMIC.turnLDO3On(PF1550::Ldo3Mode::Standby);
 }
 
 

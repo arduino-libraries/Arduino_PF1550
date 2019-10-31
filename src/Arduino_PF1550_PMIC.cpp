@@ -71,6 +71,21 @@ void Arduino_PF1550_PMIC::turnLDO2Off(PF1550::Ldo2Mode const mode)
   _io.clrBit(PF1550::Register::LDO2_CTRL, static_cast<uint8_t>(mode));
 }
 
+void Arduino_PF1550_PMIC::setLDO3Voltage(PF1550::Ldo3Voltage const ldo3_volt)
+{
+  _io.writeRegister(PF1550::Register::LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
+}
+
+void Arduino_PF1550_PMIC::turnLDO3On(PF1550::Ldo3Mode const mode)
+{
+  _io.setBit(PF1550::Register::LDO3_CTRL, static_cast<uint8_t>(mode));
+}
+
+void Arduino_PF1550_PMIC::turnLDO3Off(PF1550::Ldo3Mode const mode)
+{
+  _io.clrBit(PF1550::Register::LDO3_CTRL, static_cast<uint8_t>(mode));
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/

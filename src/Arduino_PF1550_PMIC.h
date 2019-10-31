@@ -45,6 +45,10 @@ public:
   void setLDO2Voltage   (PF1550::Ldo2Voltage const ldo2_volt);
   void turnLDO2On       (PF1550::Ldo2Mode const mode);
   void turnLDO2Off      (PF1550::Ldo2Mode const mode);
+
+  void setLDO3Voltage   (PF1550::Ldo3Voltage const ldo3_volt);
+  void turnLDO3On       (PF1550::Ldo3Mode const mode);
+  void turnLDO3Off      (PF1550::Ldo3Mode const mode);
   
 private:
 
