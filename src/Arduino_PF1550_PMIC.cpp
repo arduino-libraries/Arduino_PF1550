@@ -22,7 +22,7 @@
 
 #include "Arduino_PF1550_PMIC.h"
 
-#include "PF1550/PF1550_IoWire.h"
+#include "PF1550/PF1550_Io_EnvieH747.h"
 
 /******************************************************************************
    CTOR/DTOR
@@ -125,6 +125,6 @@ void Arduino_PF1550_PMIC::setInputCurrentLimit(PF1550::IInputCurrentLimit const 
    EXTERN DEFINITION
  ******************************************************************************/
 
-static PF1550::PF1550_IoWire io;
+static PF1550::PF1550_Io_EnvieH747 io;
 
 Arduino_PF1550_PMIC PMIC(io);

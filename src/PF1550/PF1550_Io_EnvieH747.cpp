@@ -20,7 +20,7 @@
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550_IoWire.h"
+#include "PF1550_Io_EnvieH747.h"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -36,7 +36,7 @@ namespace PF1550
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550_IoWire::PF1550_IoWire(uint8_t const i2c_addr)
+PF1550_Io_EnvieH747::PF1550_Io_EnvieH747(uint8_t const i2c_addr)
 : _i2c_addr(i2c_addr)
 {
 
@@ -46,13 +46,13 @@ PF1550_IoWire::PF1550_IoWire(uint8_t const i2c_addr)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550_IoWire::begin()
+int PF1550_Io_EnvieH747::begin()
 {
   Wire.begin();
   return 1;
 }
 
-uint8_t PF1550_IoWire::readRegister(Register const reg)
+uint8_t PF1550_Io_EnvieH747::readRegister(Register const reg)
 {
   Wire.beginTransmission(_i2c_addr);
   Wire.write(static_cast<uint8_t>(reg));
@@ -62,7 +62,7 @@ uint8_t PF1550_IoWire::readRegister(Register const reg)
   return reg_val;
 }
 
-void PF1550_IoWire::writeRegister(Register const reg, uint8_t const val)
+void PF1550_Io_EnvieH747::writeRegister(Register const reg, uint8_t const val)
 {
   Wire.beginTransmission(_i2c_addr);
   Wire.write(static_cast<uint8_t>(reg));

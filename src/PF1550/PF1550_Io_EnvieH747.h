@@ -16,8 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef PF1550_IOWIRE_H_
-#define PF1550_IOWIRE_H_
+#ifndef PF1550_IO_ENVIEH747_H_
+#define PF1550_IO_ENVIEH747_H_
 
 /******************************************************************************
    INCLUDE
@@ -36,13 +36,13 @@ namespace PF1550
    CLASS DECLARATION
  ******************************************************************************/
 
-class PF1550_IoWire : public interface::PF1550_Io
+class PF1550_Io_EnvieH747 : public interface::PF1550_Io
 {
 
 public:
 
-           PF1550_IoWire(uint8_t const i2c_addr = interface::PF1550_I2C_DEFAULT_ADDR);
-  virtual ~PF1550_IoWire() { }
+           PF1550_Io_EnvieH747(uint8_t const i2c_addr = interface::PF1550_I2C_DEFAULT_ADDR);
+  virtual ~PF1550_Io_EnvieH747() { }
 
   virtual int     begin        ()                                      override;
   virtual uint8_t readRegister (Register const reg)                    override;
@@ -60,4 +60,4 @@ private:
 
 } /* PF1550 */
 
-#endif /* PF1550_IOWIRE_H_ */
+#endif /* PF1550_IO_ENVIEH747_H_ */
