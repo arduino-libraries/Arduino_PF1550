@@ -16,8 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef PF1550_CONST_H_
-#define PF1550_CONST_H_
+#ifndef PF1550_TYPES_H_
+#define PF1550_TYPES_H_
 
 /******************************************************************************
    INCLUDE
@@ -232,4 +232,4 @@ enum class IInputCurrentLimit : uint8_t
 
 } /* PF1550 */
 
-#endif /* PF1550_CONST_H_ */
+#endif /* PF1550_TYPES_H_ */
