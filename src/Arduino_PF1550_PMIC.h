@@ -53,6 +53,7 @@ public:
   void setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge);
   void setFastChargeVoltage(PF1550::VFastCharge const v_fast_charge);
   void setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end_of_charge);
+  void setInputCurrentLimit(PF1550::IInputCurrentLimit const i_input_current_limit);
   
 private:
 

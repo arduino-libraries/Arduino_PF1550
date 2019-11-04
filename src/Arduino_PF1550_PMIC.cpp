@@ -110,6 +110,14 @@ void Arduino_PF1550_PMIC::setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end
   _io.writeRegister(PF1550::Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
 }
 
+void Arduino_PF1550_PMIC::setInputCurrentLimit(PF1550::IInputCurrentLimit const i_input_current_limit)
+{
+  uint8_t vbus_inlim_cnfg = _io.readRegister(PF1550::Register::CHARGER_VBUS_INLIM_CNFG);
+  vbus_inlim_cnfg &= ~REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask;
+  vbus_inlim_cnfg |= static_cast<uint8_t>(i_input_current_limit);
+  _io.writeRegister(PF1550::Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/
