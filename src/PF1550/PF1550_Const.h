@@ -25,43 +25,14 @@
 
 #include <stdint.h>
 
+#include "PF1550_Defines.h"
+
 /******************************************************************************
    NAMESPACE
  ******************************************************************************/
 
 namespace PF1550
 {
-
-/******************************************************************************
-   DEFINE
- ******************************************************************************/
-
-/* LDO1_CTRL ******************************************************************/
-#define REG_LDO1_CTRL_VLDO1_EN_bp       (0)
-#define REG_LDO1_CTRL_VLDO1_STBY_EN_bp  (1)
-#define REG_LDO1_CTRL_VLDO1_OMODE_bp    (2)
-
-/* LDO2_CTRL ******************************************************************/
-#define REG_LDO2_CTRL_VLDO2_EN_bp       (0)
-#define REG_LDO2_CTRL_VLDO2_STBY_EN_bp  (1)
-#define REG_LDO2_CTRL_VLDO2_OMODE_bp    (2)
-
-/* LDO3_CTRL ******************************************************************/
-#define REG_LDO3_CTRL_VLDO3_EN_bp       (0)
-#define REG_LDO3_CTRL_VLDO3_STBY_EN_bp  (1)
-#define REG_LDO3_CTRL_VLDO3_OMODE_bp    (2)
-
-/* CHG_EOC_CNFG ***************************************************************/
-#define REG_CHG_EOC_CNFG_IEOC_mask      (0x70)
-
-/* CHG_CURR_CFG ***************************************************************/
-#define REG_CHG_CURR_CFG_CHG_CC_mask    (0x1F)
-
-/* BATT_REG *******************************************************************/
-#define REG_BATT_REG_CHCCV_mask         (0x3F)
-
-/* VBUS_INLIM_CNFG ************************************************************/
-#define REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask (0xF8)
 
 /******************************************************************************
    TYPEDEF
