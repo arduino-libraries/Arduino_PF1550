@@ -16,55 +16,48 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ARDUINO_PF1550_PMIC_H_
-#define ARDUINO_PF1550_PMIC_H_
+#ifndef PF1550_IOWIRE_H_
+#define PF1550_IOWIRE_H_
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550/interface/PF1550_Io.h"
-#include "PF1550/PF1550_Types.h"
+#include "interface/PF1550_Io.h"
+
+/******************************************************************************
+   NAMESPACE
+ ******************************************************************************/
+
+namespace PF1550
+{
 
 /******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
-class Arduino_PF1550_PMIC
+class PF1550_IoWire : public interface::PF1550_Io
 {
+
 public:
 
-  Arduino_PF1550_PMIC(PF1550::interface::PF1550_Io & io);
+           PF1550_IoWire(uint8_t const i2c_addr = interface::PF1550_I2C_DEFAULT_ADDR);
+  virtual ~PF1550_IoWire() { }
 
-  int begin();
+  virtual int     begin        ()                                      override;
+  virtual uint8_t readRegister (Register const reg)                    override;
+  virtual void    writeRegister(Register const reg, uint8_t const val) override;
 
-  void setLDO1Voltage   (PF1550::Ldo1Voltage const ldo1_volt);
-  void turnLDO1On       (PF1550::Ldo1Mode const mode);
-  void turnLDO1Off      (PF1550::Ldo1Mode const mode);
-  
-  void setLDO2Voltage   (PF1550::Ldo2Voltage const ldo2_volt);
-  void turnLDO2On       (PF1550::Ldo2Mode const mode);
-  void turnLDO2Off      (PF1550::Ldo2Mode const mode);
-
-  void setLDO3Voltage   (PF1550::Ldo3Voltage const ldo3_volt);
-  void turnLDO3On       (PF1550::Ldo3Mode const mode);
-  void turnLDO3Off      (PF1550::Ldo3Mode const mode);
-
-  void setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge);
-  void setFastChargeVoltage(PF1550::VFastCharge const v_fast_charge);
-  void setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end_of_charge);
-  void setInputCurrentLimit(PF1550::IInputCurrentLimit const i_input_current_limit);
-  
 private:
 
-  PF1550::interface::PF1550_Io & _io;
+  uint8_t const _i2c_addr;
 
 };
 
 /******************************************************************************
-   EXTERN DECLARATION
+   NAMESPACE
  ******************************************************************************/
 
-extern Arduino_PF1550_PMIC PMIC;
+} /* PF1550 */
 
-#endif /* ARDUINO_PF1550_PMIC_H_ */
+#endif /* PF1550_IOWIRE_H_ */

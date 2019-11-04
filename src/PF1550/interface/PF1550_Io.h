@@ -16,20 +16,23 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef PF1550_IO_H
-#define PF1550_IO_H
+#ifndef ARDUINO_PF1550_INTERFACE_PF1550_IO_H_
+#define ARDUINO_PF1550_INTERFACE_PF1550_IO_H_
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550_Register.h"
+#include "../PF1550_Register.h"
 
 /******************************************************************************
    NAMESPACE
  ******************************************************************************/
 
 namespace PF1550
+{
+
+namespace interface
 {
 
 /******************************************************************************
@@ -47,19 +50,14 @@ class PF1550_Io
 
 public:
 
-  PF1550_Io(uint8_t const i2c_addr = PF1550_I2C_DEFAULT_ADDR);
+  virtual ~PF1550_Io() { }
 
-  int     begin        ();
+  virtual int     begin        ()                                      = 0;
+  virtual uint8_t readRegister (Register const reg)                    = 0;
+  virtual void    writeRegister(Register const reg, uint8_t const val) = 0;
 
-  uint8_t readRegister (Register const reg);
-  void    writeRegister(Register const reg, uint8_t const val);
-
-  void    setBit       (Register const reg, uint8_t const bit_pos);
-  void    clrBit       (Register const reg, uint8_t const bit_pos);
-
-private:
-
-  uint8_t _i2c_addr;
+          void    setBit       (Register const reg, uint8_t const bit_pos);
+          void    clrBit       (Register const reg, uint8_t const bit_pos);
 
 };
 
@@ -67,6 +65,8 @@ private:
    NAMESPACE
  ******************************************************************************/
 
+} /* interface */
+
 } /* PF1550 */
 
-#endif /* PF1550_IO_H */
+#endif /* ARDUINO_PF1550_INTERFACE_PF1550_IO_H_ */
