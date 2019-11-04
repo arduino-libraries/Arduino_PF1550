@@ -17,6 +17,7 @@ void setup() {
 
   PMIC.setFastChargeCurrent(PF1550::IFastCharge::I_500_mA);
   PMIC.setFastChargeVoltage(PF1550::VFastCharge::V_3_80);
+  PMIC.setEndOfChargeCurrent(PF1550::IEndOfCharge::I_5_mA);
 }
 
 

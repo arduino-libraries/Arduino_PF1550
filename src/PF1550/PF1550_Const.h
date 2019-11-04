@@ -51,6 +51,9 @@ namespace PF1550
 #define REG_LDO3_CTRL_VLDO3_STBY_EN_bp  (1)
 #define REG_LDO3_CTRL_VLDO3_OMODE_bp    (2)
 
+/* CHG_EOC_CNFG ***************************************************************/
+#define REG_CHG_EOC_CNFG_IEOC_mask      (0x70)
+
 /* CHG_CURR_CFG ***************************************************************/
 #define REG_CHG_CURR_CFG_CHG_CC_mask    (0x1F)
 
@@ -213,6 +216,15 @@ enum class VFastCharge : uint8_t
   V_4_40 = 0x35,
   V_4_42 = 0x36,
   V_4_44 = 0x37,
+};
+
+enum class IEndOfCharge : uint8_t
+{
+  I_5_mA  = (0x00 << 4),
+  I_10_mA = (0x01 << 4),
+  I_20_mA = (0x02 << 4),
+  I_30_mA = (0x03 << 4),
+  I_50_mA = (0x04 << 4),
 };
 
 /******************************************************************************

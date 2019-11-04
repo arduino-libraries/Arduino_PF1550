@@ -102,6 +102,14 @@ void Arduino_PF1550_PMIC::setFastChargeVoltage(PF1550::VFastCharge const v_fast_
   _io.writeRegister(PF1550::Register::CHARGER_BATT_REG, batt_reg);
 }
 
+void Arduino_PF1550_PMIC::setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end_of_charge)
+{
+  uint8_t chg_eoc_cnfg = _io.readRegister(PF1550::Register::CHARGER_CHG_EOC_CNFG);
+  chg_eoc_cnfg &= ~REG_CHG_EOC_CNFG_IEOC_mask;
+  chg_eoc_cnfg |= static_cast<uint8_t>(i_end_of_charge);
+  _io.writeRegister(PF1550::Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/
