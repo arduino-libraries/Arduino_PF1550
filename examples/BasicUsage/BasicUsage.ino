@@ -14,6 +14,8 @@ void setup() {
   PMIC.setLDO3Voltage(PF1550::Ldo3Voltage::V_1_20);
   PMIC.turnLDO3On(PF1550::Ldo3Mode::Normal);
   PMIC.turnLDO3On(PF1550::Ldo3Mode::Standby);
+
+  PMIC.setFastChargeCurrent(PF1550::IFastCharge::I_500_mA);
 }
 
 

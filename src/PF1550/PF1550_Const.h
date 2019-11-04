@@ -51,6 +51,9 @@ namespace PF1550
 #define REG_LDO3_CTRL_VLDO3_STBY_EN_bp  (1)
 #define REG_LDO3_CTRL_VLDO3_OMODE_bp    (2)
 
+/* CHG_CURR_CFG ***************************************************************/
+#define REG_CHG_CURR_CFG_CHG_CC_mask    (0x1F)
+
 /******************************************************************************
    TYPEDEF
  ******************************************************************************/
@@ -132,6 +135,29 @@ enum class Ldo3Mode : uint8_t
   Normal  = REG_LDO3_CTRL_VLDO3_EN_bp,
   Standby = REG_LDO3_CTRL_VLDO3_STBY_EN_bp,
   Sleep   = REG_LDO3_CTRL_VLDO3_OMODE_bp,
+};
+
+enum class IFastCharge : uint8_t
+{
+  I_100_mA  = 0x00,
+  I_150_mA  = 0x01,
+  I_200_mA  = 0x02,
+  I_250_mA  = 0x03,
+  I_300_mA  = 0x04,
+  I_350_mA  = 0x05,
+  I_400_mA  = 0x06,
+  I_450_mA  = 0x07,
+  I_500_mA  = 0x08,
+  I_550_mA  = 0x09,
+  I_600_mA  = 0x0A,
+  I_650_mA  = 0x0B,
+  I_700_mA  = 0x0C,
+  I_750_mA  = 0x0D,
+  I_800_mA  = 0x0E,
+  I_850_mA  = 0x0F,
+  I_900_mA  = 0x10,
+  I_950_mA  = 0x11,
+  I_1000_mA = 0x12,
 };
 
 /******************************************************************************

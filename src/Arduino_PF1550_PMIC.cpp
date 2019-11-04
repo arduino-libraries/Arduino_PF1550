@@ -86,6 +86,14 @@ void Arduino_PF1550_PMIC::turnLDO3Off(PF1550::Ldo3Mode const mode)
   _io.clrBit(PF1550::Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
 
+void Arduino_PF1550_PMIC::setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge)
+{
+  uint8_t chg_curr_reg = _io.readRegister(PF1550::Register::CHARGER_CHG_CURR_CFG);
+  chg_curr_reg &= ~REG_CHG_CURR_CFG_CHG_CC_mask;
+  chg_curr_reg |= static_cast<uint8_t>(i_fast_charge);
+  _io.writeRegister(PF1550::Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/

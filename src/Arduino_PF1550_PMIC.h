@@ -49,6 +49,8 @@ public:
   void setLDO3Voltage   (PF1550::Ldo3Voltage const ldo3_volt);
   void turnLDO3On       (PF1550::Ldo3Mode const mode);
   void turnLDO3Off      (PF1550::Ldo3Mode const mode);
+
+  void setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge);
   
 private:
 
