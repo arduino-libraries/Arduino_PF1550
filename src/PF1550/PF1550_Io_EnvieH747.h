@@ -47,6 +47,8 @@ public:
   virtual int     begin        ()                                      override;
   virtual uint8_t readRegister (Register const reg)                    override;
   virtual void    writeRegister(Register const reg, uint8_t const val) override;
+  virtual void    setSTANDBY   ()                                      override;
+  virtual void    clrSTANDBY   ()                                      override;
 
 private:
 

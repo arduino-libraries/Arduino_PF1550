@@ -55,6 +55,8 @@ public:
   virtual int     begin        ()                                      = 0;
   virtual uint8_t readRegister (Register const reg)                    = 0;
   virtual void    writeRegister(Register const reg, uint8_t const val) = 0;
+  virtual void    setSTANDBY   ()                                      = 0;
+  virtual void    clrSTANDBY   ()                                      = 0;
 
           void    setBit       (Register const reg, uint8_t const bit_pos);
           void    clrBit       (Register const reg, uint8_t const bit_pos);

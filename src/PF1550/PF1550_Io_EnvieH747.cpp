@@ -70,6 +70,16 @@ void PF1550_Io_EnvieH747::writeRegister(Register const reg, uint8_t const val)
   Wire.endTransmission();
 }
 
+void PF1550_Io_EnvieH747::setSTANDBY()
+{
+  /* TODO: Use STM32H7 HAL to set PJ0 */
+}
+
+void PF1550_Io_EnvieH747::clrSTANDBY()
+{
+  /* TODO: Use STM32H7 HAL to clr PJ0 */
+}
+
 /******************************************************************************
    NAMESPACE
  ******************************************************************************/
