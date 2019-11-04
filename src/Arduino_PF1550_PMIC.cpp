@@ -94,6 +94,14 @@ void Arduino_PF1550_PMIC::setFastChargeCurrent(PF1550::IFastCharge const i_fast_
   _io.writeRegister(PF1550::Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
 }
 
+void Arduino_PF1550_PMIC::setFastChargeVoltage(PF1550::VFastCharge const v_fast_charge)
+{
+  uint8_t batt_reg = _io.readRegister(PF1550::Register::CHARGER_BATT_REG);
+  batt_reg &= ~REG_BATT_REG_CHCCV_mask;
+  batt_reg |= static_cast<uint8_t>(v_fast_charge);
+  _io.writeRegister(PF1550::Register::CHARGER_BATT_REG, batt_reg);
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/
