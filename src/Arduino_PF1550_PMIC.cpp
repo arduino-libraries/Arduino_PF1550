@@ -29,7 +29,8 @@
  ******************************************************************************/
 
 Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(PF1550::interface::PF1550_Io & io)
-: _io(io)
+: _io     (io )
+, _control(_io)
 {
 
 }
@@ -49,49 +50,40 @@ uint8_t Arduino_PF1550_PMIC::getDeviceId()
   return _io.readRegister(PF1550::Register::PMIC_DEVICE_ID);
 }
 
-void Arduino_PF1550_PMIC::setLDO1Voltage(PF1550::Ldo1Voltage const ldo1_volt)
+void Arduino_PF1550_PMIC::configLDO1(PF1550::Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
-  _io.writeRegister(PF1550::Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
+  _control.setLDO1Voltage(ldo_1_volt);
+
+  if(enable)            _control.turnLDO1On (PF1550::Ldo1Mode::Normal);
+  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Normal);
+  if(enable_in_standby) _control.turnLDO1On (PF1550::Ldo1Mode::Standby);
+  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO1On (PF1550::Ldo1Mode::Sleep);
+  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::turnLDO1On(PF1550::Ldo1Mode const mode)
+void Arduino_PF1550_PMIC::configLDO2(PF1550::Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
-  _io.setBit(PF1550::Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
+  _control.setLDO2Voltage(ldo_2_volt);
+
+  if(enable)            _control.turnLDO2On (PF1550::Ldo2Mode::Normal);
+  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Normal);
+  if(enable_in_standby) _control.turnLDO2On (PF1550::Ldo2Mode::Standby);
+  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO2On (PF1550::Ldo2Mode::Sleep);
+  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::turnLDO1Off(PF1550::Ldo1Mode const mode)
+void Arduino_PF1550_PMIC::configLDO3(PF1550::Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
-  _io.clrBit(PF1550::Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
-}
+  _control.setLDO3Voltage(ldo_3_volt);
 
-void Arduino_PF1550_PMIC::setLDO2Voltage(PF1550::Ldo2Voltage const ldo2_volt)
-{
-  _io.writeRegister(PF1550::Register::PMIC_LDO2_VOLT, static_cast<uint8_t>(ldo2_volt));
-}
-
-void Arduino_PF1550_PMIC::turnLDO2On(PF1550::Ldo2Mode const mode)
-{
-  _io.setBit(PF1550::Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
-}
-
-void Arduino_PF1550_PMIC::turnLDO2Off(PF1550::Ldo2Mode const mode)
-{
-  _io.clrBit(PF1550::Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
-}
-
-void Arduino_PF1550_PMIC::setLDO3Voltage(PF1550::Ldo3Voltage const ldo3_volt)
-{
-  _io.writeRegister(PF1550::Register::PMIC_LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
-}
-
-void Arduino_PF1550_PMIC::turnLDO3On(PF1550::Ldo3Mode const mode)
-{
-  _io.setBit(PF1550::Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
-}
-
-void Arduino_PF1550_PMIC::turnLDO3Off(PF1550::Ldo3Mode const mode)
-{
-  _io.clrBit(PF1550::Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
+  if(enable)            _control.turnLDO3On (PF1550::Ldo3Mode::Normal);
+  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Normal);
+  if(enable_in_standby) _control.turnLDO3On (PF1550::Ldo3Mode::Standby);
+  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO3On (PF1550::Ldo3Mode::Sleep);
+  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Sleep);
 }
 
 void Arduino_PF1550_PMIC::setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge)

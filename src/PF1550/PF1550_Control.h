@@ -16,59 +16,59 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ARDUINO_PF1550_PMIC_H_
-#define ARDUINO_PF1550_PMIC_H_
+#ifndef PF1550_CONTROL_H_
+#define PF1550_CONTROL_H_
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550/interface/PF1550_Io.h"
-#include "PF1550/PF1550_Types.h"
-#include "PF1550/PF1550_Control.h"
+#include "PF1550_Types.h"
+#include "interface/PF1550_Io.h"
 
 /******************************************************************************
-   CONSTANT
+   NAMESPACE
  ******************************************************************************/
 
-static uint8_t const PF1550_DEVICE_ID = 0b01111100;
+namespace PF1550
+{
 
 /******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
-class Arduino_PF1550_PMIC
+class PF1550_Control
 {
+
 public:
 
-  Arduino_PF1550_PMIC(PF1550::interface::PF1550_Io & io);
-
-  int begin();
-
-  uint8_t getDeviceId();
+  PF1550_Control(interface::PF1550_Io & io);
 
 
-  void configLDO1(PF1550::Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
-  void configLDO2(PF1550::Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
-  void configLDO3(PF1550::Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
+  /* LDO1 Configuration *******************************************************/
+  void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);
+  void turnLDO1On       (Ldo1Mode    const mode);
+  void turnLDO1Off      (Ldo1Mode    const mode);
+  /* LDO2 Configuration *******************************************************/
+  void setLDO2Voltage   (Ldo2Voltage const ldo2_volt);
+  void turnLDO2On       (Ldo2Mode    const mode);
+  void turnLDO2Off      (Ldo2Mode    const mode);
+  /* LDO3 Configuration *******************************************************/
+  void setLDO3Voltage   (Ldo3Voltage const ldo3_volt);
+  void turnLDO3On       (Ldo3Mode    const mode);
+  void turnLDO3Off      (Ldo3Mode    const mode);
 
 
-  void setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge);
-  void setFastChargeVoltage(PF1550::VFastCharge const v_fast_charge);
-  void setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end_of_charge);
-  void setInputCurrentLimit(PF1550::IInputCurrentLimit const i_input_current_limit);
-  
 private:
 
-  PF1550::interface::PF1550_Io & _io;
-  PF1550::PF1550_Control _control;
+  interface::PF1550_Io & _io;
 
 };
 
 /******************************************************************************
-   EXTERN DECLARATION
+   NAMESPACE
  ******************************************************************************/
 
-extern Arduino_PF1550_PMIC PMIC;
+} /* PF1550 */
 
-#endif /* ARDUINO_PF1550_PMIC_H_ */
+#endif /* PF1550_CONTROL_H_ */

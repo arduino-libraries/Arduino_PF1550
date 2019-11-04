@@ -2,7 +2,7 @@
 
 void setup() {
   PMIC.begin();
-
+/*
   PMIC.setLDO1Voltage(PF1550::Ldo1Voltage::V_1_00);
   PMIC.turnLDO1On(PF1550::Ldo1Mode::Normal);
   PMIC.turnLDO1On(PF1550::Ldo1Mode::Standby);
@@ -14,6 +14,10 @@ void setup() {
   PMIC.setLDO3Voltage(PF1550::Ldo3Voltage::V_1_20);
   PMIC.turnLDO3On(PF1550::Ldo3Mode::Normal);
   PMIC.turnLDO3On(PF1550::Ldo3Mode::Standby);
+*/
+  PMIC.configLDO1(PF1550::Ldo1Voltage::V_1_00, true, true, false);
+  PMIC.configLDO2(PF1550::Ldo2Voltage::V_1_80, true, true, false);
+  PMIC.configLDO3(PF1550::Ldo3Voltage::V_1_20, true, true, false);
 
   PMIC.setFastChargeCurrent(PF1550::IFastCharge::I_500_mA);
   PMIC.setFastChargeVoltage(PF1550::VFastCharge::V_3_80);
