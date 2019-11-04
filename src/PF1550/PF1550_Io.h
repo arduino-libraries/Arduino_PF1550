@@ -16,16 +16,14 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef PF1550_IO_H
+#define PF1550_IO_H
+
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550_IO.h"
-
-#include <assert.h>
-
-#include <Arduino.h>
-#include <Wire.h>
+#include "PF1550_Register.h"
 
 /******************************************************************************
    NAMESPACE
@@ -35,61 +33,40 @@ namespace PF1550
 {
 
 /******************************************************************************
-   CTOR/DTOR
+   CONSTANTS
  ******************************************************************************/
 
-PF1550_IO::PF1550_IO(uint8_t const i2c_addr)
-: _i2c_addr(i2c_addr)
-{
-
-}
+static uint8_t const PF1550_I2C_DEFAULT_ADDR = 0x08;
 
 /******************************************************************************
-   PUBLIC MEMBER FUNCTIONS
+   CLASS DECLARATION
  ******************************************************************************/
 
-int PF1550_IO::begin()
+class PF1550_Io
 {
-  Wire.begin();
-  return 1;
-}
 
-uint8_t PF1550_IO::readRegister(Register const reg)
-{
-  Wire.beginTransmission(_i2c_addr);
-  Wire.write(static_cast<uint8_t>(reg));
-  Wire.endTransmission();
-  Wire.requestFrom(_i2c_addr, 1);
-  uint8_t const reg_val = Wire.available() ? Wire.read() : 0;
-  return reg_val;
-}
+public:
 
-void PF1550_IO::writeRegister(Register const reg, uint8_t const val)
-{
-  Wire.beginTransmission(_i2c_addr);
-  Wire.write(static_cast<uint8_t>(reg));
-  Wire.write(val);
-  Wire.endTransmission();
-}
+  PF1550_Io(uint8_t const i2c_addr = PF1550_I2C_DEFAULT_ADDR);
 
-void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
-{
-  assert(bit_pos < 8);
-  uint8_t reg_val = readRegister(reg);
-  reg_val |= (1<<bit_pos);
-  writeRegister(reg, reg_val);
-}
+  int     begin        ();
 
-void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
-{
-  assert(bit_pos < 8);
-  uint8_t reg_val = readRegister(reg);
-  reg_val &= ~(1<<bit_pos);
-  writeRegister(reg, reg_val);
-}
+  uint8_t readRegister (Register const reg);
+  void    writeRegister(Register const reg, uint8_t const val);
+
+  void    setBit       (Register const reg, uint8_t const bit_pos);
+  void    clrBit       (Register const reg, uint8_t const bit_pos);
+
+private:
+
+  uint8_t _i2c_addr;
+
+};
 
 /******************************************************************************
    NAMESPACE
  ******************************************************************************/
 
-} /* namespace PF1550 */
+} /* PF1550 */
+
+#endif /* PF1550_IO_H */

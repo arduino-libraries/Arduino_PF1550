@@ -16,14 +16,16 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef PF1550_IO_H
-#define PF1550_IO_H
-
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550_Register.h"
+#include "PF1550_Io.h"
+
+#include <assert.h>
+
+#include <Arduino.h>
+#include <Wire.h>
 
 /******************************************************************************
    NAMESPACE
@@ -33,40 +35,61 @@ namespace PF1550
 {
 
 /******************************************************************************
-   CONSTANTS
+   CTOR/DTOR
  ******************************************************************************/
 
-static uint8_t const PF1550_I2C_DEFAULT_ADDR = 0x08;
-
-/******************************************************************************
-   CLASS DECLARATION
- ******************************************************************************/
-
-class PF1550_IO
+PF1550_Io::PF1550_Io(uint8_t const i2c_addr)
+: _i2c_addr(i2c_addr)
 {
 
-public:
+}
 
-  PF1550_IO(uint8_t const i2c_addr = PF1550_I2C_DEFAULT_ADDR);
+/******************************************************************************
+   PUBLIC MEMBER FUNCTIONS
+ ******************************************************************************/
 
-  int     begin        ();
+int PF1550_Io::begin()
+{
+  Wire.begin();
+  return 1;
+}
 
-  uint8_t readRegister (Register const reg);
-  void    writeRegister(Register const reg, uint8_t const val);
+uint8_t PF1550_Io::readRegister(Register const reg)
+{
+  Wire.beginTransmission(_i2c_addr);
+  Wire.write(static_cast<uint8_t>(reg));
+  Wire.endTransmission();
+  Wire.requestFrom(_i2c_addr, 1);
+  uint8_t const reg_val = Wire.available() ? Wire.read() : 0;
+  return reg_val;
+}
 
-  void    setBit       (Register const reg, uint8_t const bit_pos);
-  void    clrBit       (Register const reg, uint8_t const bit_pos);
+void PF1550_Io::writeRegister(Register const reg, uint8_t const val)
+{
+  Wire.beginTransmission(_i2c_addr);
+  Wire.write(static_cast<uint8_t>(reg));
+  Wire.write(val);
+  Wire.endTransmission();
+}
 
-private:
+void PF1550_Io::setBit(Register const reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  uint8_t reg_val = readRegister(reg);
+  reg_val |= (1<<bit_pos);
+  writeRegister(reg, reg_val);
+}
 
-  uint8_t _i2c_addr;
-
-};
+void PF1550_Io::clrBit(Register const reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  uint8_t reg_val = readRegister(reg);
+  reg_val &= ~(1<<bit_pos);
+  writeRegister(reg, reg_val);
+}
 
 /******************************************************************************
    NAMESPACE
  ******************************************************************************/
 
-} /* PF1550 */
-
-#endif /* PF1550_IO_H */
+} /* namespace PF1550 */
