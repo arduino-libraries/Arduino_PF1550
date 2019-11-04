@@ -44,6 +44,11 @@ int Arduino_PF1550_PMIC::begin()
   return 1;
 }
 
+uint8_t Arduino_PF1550_PMIC::getDeviceId()
+{
+  return _io.readRegister(PF1550::Register::PMIC_DEVICE_ID);
+}
+
 void Arduino_PF1550_PMIC::setLDO1Voltage(PF1550::Ldo1Voltage const ldo1_volt)
 {
   _io.writeRegister(PF1550::Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));

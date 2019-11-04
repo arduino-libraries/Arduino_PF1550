@@ -27,6 +27,12 @@
 #include "PF1550/PF1550_Types.h"
 
 /******************************************************************************
+   CONSTANT
+ ******************************************************************************/
+
+static uint8_t const PF1550_DEVICE_ID = 0b01111100;
+
+/******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
@@ -37,6 +43,8 @@ public:
   Arduino_PF1550_PMIC(PF1550::interface::PF1550_Io & io);
 
   int begin();
+
+  uint8_t getDeviceId();
 
   void setLDO1Voltage   (PF1550::Ldo1Voltage const ldo1_volt);
   void turnLDO1On       (PF1550::Ldo1Mode const mode);
