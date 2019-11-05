@@ -80,3 +80,35 @@ void PF1550_Control::turnLDO3Off(Ldo3Mode const mode)
 {
   _io.clrBit(Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
+
+void PF1550_Control::setFastChargeCurrent(IFastCharge const i_fast_charge)
+{
+  uint8_t chg_curr_reg = _io.readRegister(Register::CHARGER_CHG_CURR_CFG);
+  chg_curr_reg &= ~REG_CHG_CURR_CFG_CHG_CC_mask;
+  chg_curr_reg |= static_cast<uint8_t>(i_fast_charge);
+  _io.writeRegister(Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
+}
+
+void PF1550_Control::setFastChargeVoltage(VFastCharge const v_fast_charge)
+{
+  uint8_t batt_reg = _io.readRegister(Register::CHARGER_BATT_REG);
+  batt_reg &= ~REG_BATT_REG_CHCCV_mask;
+  batt_reg |= static_cast<uint8_t>(v_fast_charge);
+  _io.writeRegister(Register::CHARGER_BATT_REG, batt_reg);
+}
+
+void PF1550_Control::setEndOfChargeCurrent(IEndOfCharge const i_end_of_charge)
+{
+  uint8_t chg_eoc_cnfg = _io.readRegister(Register::CHARGER_CHG_EOC_CNFG);
+  chg_eoc_cnfg &= ~REG_CHG_EOC_CNFG_IEOC_mask;
+  chg_eoc_cnfg |= static_cast<uint8_t>(i_end_of_charge);
+  _io.writeRegister(Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
+}
+
+void PF1550_Control::setInputCurrentLimit(IInputCurrentLimit const i_input_current_limit)
+{
+  uint8_t vbus_inlim_cnfg = _io.readRegister(Register::CHARGER_VBUS_INLIM_CNFG);
+  vbus_inlim_cnfg &= ~REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask;
+  vbus_inlim_cnfg |= static_cast<uint8_t>(i_input_current_limit);
+  _io.writeRegister(Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
+}

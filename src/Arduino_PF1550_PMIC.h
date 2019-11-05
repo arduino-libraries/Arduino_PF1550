@@ -52,11 +52,10 @@ public:
   void configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
   void configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
 
-
-  void setFastChargeCurrent(IFastCharge const i_fast_charge);
-  void setFastChargeVoltage(VFastCharge const v_fast_charge);
-  void setEndOfChargeCurrent(IEndOfCharge const i_end_of_charge);
-  void setInputCurrentLimit(IInputCurrentLimit const i_input_current_limit);
+  void configCharger(IFastCharge        const i_fast_charge,
+                     VFastCharge        const v_fast_charge,
+                     IEndOfCharge       const i_end_of_charge,
+                     IInputCurrentLimit const i_input_current_limit);
   
 private:
 

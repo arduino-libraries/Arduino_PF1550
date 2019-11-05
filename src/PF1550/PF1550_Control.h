@@ -51,6 +51,12 @@ public:
   void turnLDO3On       (Ldo3Mode    const mode);
   void turnLDO3Off      (Ldo3Mode    const mode);
 
+  /* Charger Configuration ****************************************************/
+  void setFastChargeCurrent (IFastCharge        const i_fast_charge);
+  void setFastChargeVoltage (VFastCharge        const v_fast_charge);
+  void setEndOfChargeCurrent(IEndOfCharge       const i_end_of_charge);
+  void setInputCurrentLimit (IInputCurrentLimit const i_input_current_limit);
+
 
 private:
 

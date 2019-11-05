@@ -19,10 +19,10 @@ void setup() {
   PMIC.configLDO2(Ldo2Voltage::V_1_80, true, true, false);
   PMIC.configLDO3(Ldo3Voltage::V_1_20, true, true, false);
 
-  PMIC.setFastChargeCurrent(IFastCharge::I_500_mA);
-  PMIC.setFastChargeVoltage(VFastCharge::V_3_80);
-  PMIC.setEndOfChargeCurrent(IEndOfCharge::I_5_mA);
-  PMIC.setInputCurrentLimit(IInputCurrentLimit::I_100_mA);
+  PMIC.configCharger(IFastCharge::I_500_mA,
+                     VFastCharge::V_3_80,
+                     IEndOfCharge::I_5_mA,
+                     IInputCurrentLimit::I_100_mA);
 }
 
 
