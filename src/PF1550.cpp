@@ -20,7 +20,7 @@
    INCLUDE
  ******************************************************************************/
 
-#include "Arduino_PF1550_PMIC.h"
+#include "PF1550.h"
 
 #include "PF1550/PF1550_Io_EnvieH747.h"
 
@@ -28,7 +28,7 @@
    CTOR/DTOR
  ******************************************************************************/
 
-Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(interface::PF1550_Io & io)
+PF1550::PF1550(interface::PF1550_Io & io)
 : _control(io)
 {
 
@@ -38,12 +38,12 @@ Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(interface::PF1550_Io & io)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int Arduino_PF1550_PMIC::begin()
+int PF1550::begin()
 {
   return _control.begin();
 }
 
-void Arduino_PF1550_PMIC::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO1Voltage(ldo_1_volt);
 
@@ -55,7 +55,7 @@ void Arduino_PF1550_PMIC::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, 
   else                  _control.turnLDO1Off(Ldo1Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO2Voltage(ldo_2_volt);
 
@@ -67,7 +67,7 @@ void Arduino_PF1550_PMIC::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, 
   else                  _control.turnLDO2Off(Ldo2Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO3Voltage(ldo_3_volt);
 
@@ -79,7 +79,7 @@ void Arduino_PF1550_PMIC::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, 
   else                  _control.turnLDO3Off(Ldo3Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::configCharger(IFastCharge        const i_fast_charge,
+void PF1550::configCharger(IFastCharge        const i_fast_charge,
                                         VFastCharge        const v_fast_charge,
                                         IEndOfCharge       const i_end_of_charge,
                                         IInputCurrentLimit const i_input_current_limit)
@@ -96,4 +96,4 @@ void Arduino_PF1550_PMIC::configCharger(IFastCharge        const i_fast_charge,
 
 static PF1550_Io_EnvieH747 io;
 
-Arduino_PF1550_PMIC PMIC(io);
+PF1550 PMIC(io);

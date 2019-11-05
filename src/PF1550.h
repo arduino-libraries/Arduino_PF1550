@@ -16,8 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ARDUINO_PF1550_PMIC_H_
-#define ARDUINO_PF1550_PMIC_H_
+#ifndef ARDUINO_PF1550_H_
+#define ARDUINO_PF1550_H_
 
 /******************************************************************************
    INCLUDE
@@ -31,11 +31,11 @@
    CLASS DECLARATION
  ******************************************************************************/
 
-class Arduino_PF1550_PMIC
+class PF1550
 {
 public:
 
-  Arduino_PF1550_PMIC(interface::PF1550_Io & io);
+  PF1550(interface::PF1550_Io & io);
 
   int begin();
 
@@ -58,6 +58,6 @@ private:
    EXTERN DECLARATION
  ******************************************************************************/
 
-extern Arduino_PF1550_PMIC PMIC;
+extern PF1550 PMIC;
 
-#endif /* ARDUINO_PF1550_PMIC_H_ */
+#endif /* ARDUINO_PF1550_H_ */

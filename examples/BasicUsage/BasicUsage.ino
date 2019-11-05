@@ -1,4 +1,4 @@
-#include "Arduino_PF1550_PMIC.h"
+#include "PF1550.h"
 
 void setup() {
   PMIC.begin();
