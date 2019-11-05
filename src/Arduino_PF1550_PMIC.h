@@ -28,12 +28,6 @@
 #include "PF1550/PF1550_Control.h"
 
 /******************************************************************************
-   CONSTANT
- ******************************************************************************/
-
-static uint8_t const PF1550_DEVICE_ID = 0b01111100;
-
-/******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
@@ -44,9 +38,6 @@ public:
   Arduino_PF1550_PMIC(interface::PF1550_Io & io);
 
   int begin();
-
-  uint8_t getDeviceId();
-
 
   void configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
   void configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);

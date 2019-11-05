@@ -27,6 +27,12 @@
 #include "interface/PF1550_Io.h"
 
 /******************************************************************************
+   CONSTANT
+ ******************************************************************************/
+
+static uint8_t const PF1550_DEVICE_ID = 0b01111100;
+
+/******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
@@ -57,6 +63,8 @@ public:
   void setEndOfChargeCurrent(IEndOfCharge       const i_end_of_charge);
   void setInputCurrentLimit (IInputCurrentLimit const i_input_current_limit);
 
+  /* Miscellaneous ************************************************************/
+  uint8_t getDeviceId();
 
 private:
 

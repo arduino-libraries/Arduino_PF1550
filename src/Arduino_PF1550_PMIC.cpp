@@ -45,11 +45,6 @@ int Arduino_PF1550_PMIC::begin()
   return 1;
 }
 
-uint8_t Arduino_PF1550_PMIC::getDeviceId()
-{
-  return _io.readRegister(Register::PMIC_DEVICE_ID);
-}
-
 void Arduino_PF1550_PMIC::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO1Voltage(ldo_1_volt);

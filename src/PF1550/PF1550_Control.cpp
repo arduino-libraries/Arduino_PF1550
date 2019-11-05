@@ -112,3 +112,8 @@ void PF1550_Control::setInputCurrentLimit(IInputCurrentLimit const i_input_curre
   vbus_inlim_cnfg |= static_cast<uint8_t>(i_input_current_limit);
   _io.writeRegister(Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
 }
+
+uint8_t PF1550_Control::getDeviceId()
+{
+  return _io.readRegister(Register::PMIC_DEVICE_ID);
+}
