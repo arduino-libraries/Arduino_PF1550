@@ -50,7 +50,6 @@ public:
   
 private:
 
-  interface::PF1550_Io & _io;
   PF1550_Control _control;
 
 };

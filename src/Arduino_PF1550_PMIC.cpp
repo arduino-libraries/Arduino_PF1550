@@ -29,8 +29,7 @@
  ******************************************************************************/
 
 Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(interface::PF1550_Io & io)
-: _io     (io )
-, _control(_io)
+: _control(io)
 {
 
 }
@@ -41,8 +40,7 @@ Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(interface::PF1550_Io & io)
 
 int Arduino_PF1550_PMIC::begin()
 {
-  _io.begin();
-  return 1;
+  return _control.begin();
 }
 
 void Arduino_PF1550_PMIC::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)

@@ -36,6 +36,11 @@ PF1550_Control::PF1550_Control(interface::PF1550_Io & io)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
+int PF1550_Control::begin()
+{
+  return _io.begin();
+}
+
 void PF1550_Control::setLDO1Voltage(Ldo1Voltage const ldo1_volt)
 {
   _io.writeRegister(Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));

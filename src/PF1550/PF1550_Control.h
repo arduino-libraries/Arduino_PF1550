@@ -44,6 +44,9 @@ public:
   PF1550_Control(interface::PF1550_Io & io);
 
 
+  int begin();
+
+
   /* LDO1 Configuration *******************************************************/
   void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);
   void turnLDO1On       (Ldo1Mode    const mode);
