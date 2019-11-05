@@ -23,13 +23,6 @@
 #include "PF1550_Control.h"
 
 /******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-namespace PF1550
-{
-
-/******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
@@ -43,53 +36,47 @@ PF1550_Control::PF1550_Control(interface::PF1550_Io & io)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-void PF1550_Control::setLDO1Voltage(PF1550::Ldo1Voltage const ldo1_volt)
+void PF1550_Control::setLDO1Voltage(Ldo1Voltage const ldo1_volt)
 {
-  _io.writeRegister(PF1550::Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
+  _io.writeRegister(Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
 }
 
-void PF1550_Control::turnLDO1On(PF1550::Ldo1Mode const mode)
+void PF1550_Control::turnLDO1On(Ldo1Mode const mode)
 {
-  _io.setBit(PF1550::Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
+  _io.setBit(Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
 }
 
-void PF1550_Control::turnLDO1Off(PF1550::Ldo1Mode const mode)
+void PF1550_Control::turnLDO1Off(Ldo1Mode const mode)
 {
-  _io.clrBit(PF1550::Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
+  _io.clrBit(Register::PMIC_LDO1_CTRL, static_cast<uint8_t>(mode));
 }
 
-void PF1550_Control::setLDO2Voltage(PF1550::Ldo2Voltage const ldo2_volt)
+void PF1550_Control::setLDO2Voltage(Ldo2Voltage const ldo2_volt)
 {
-  _io.writeRegister(PF1550::Register::PMIC_LDO2_VOLT, static_cast<uint8_t>(ldo2_volt));
+  _io.writeRegister(Register::PMIC_LDO2_VOLT, static_cast<uint8_t>(ldo2_volt));
 }
 
-void PF1550_Control::turnLDO2On(PF1550::Ldo2Mode const mode)
+void PF1550_Control::turnLDO2On(Ldo2Mode const mode)
 {
-  _io.setBit(PF1550::Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
+  _io.setBit(Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
 }
 
-void PF1550_Control::turnLDO2Off(PF1550::Ldo2Mode const mode)
+void PF1550_Control::turnLDO2Off(Ldo2Mode const mode)
 {
-  _io.clrBit(PF1550::Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
+  _io.clrBit(Register::PMIC_LDO2_CTRL, static_cast<uint8_t>(mode));
 }
 
-void PF1550_Control::setLDO3Voltage(PF1550::Ldo3Voltage const ldo3_volt)
+void PF1550_Control::setLDO3Voltage(Ldo3Voltage const ldo3_volt)
 {
-  _io.writeRegister(PF1550::Register::PMIC_LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
+  _io.writeRegister(Register::PMIC_LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
 }
 
-void PF1550_Control::turnLDO3On(PF1550::Ldo3Mode const mode)
+void PF1550_Control::turnLDO3On(Ldo3Mode const mode)
 {
-  _io.setBit(PF1550::Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
+  _io.setBit(Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
 
-void PF1550_Control::turnLDO3Off(PF1550::Ldo3Mode const mode)
+void PF1550_Control::turnLDO3Off(Ldo3Mode const mode)
 {
-  _io.clrBit(PF1550::Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
+  _io.clrBit(Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
-
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-} /* PF1550 */

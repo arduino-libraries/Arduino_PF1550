@@ -28,7 +28,7 @@
    CTOR/DTOR
  ******************************************************************************/
 
-Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(PF1550::interface::PF1550_Io & io)
+Arduino_PF1550_PMIC::Arduino_PF1550_PMIC(interface::PF1550_Io & io)
 : _io     (io )
 , _control(_io)
 {
@@ -47,81 +47,81 @@ int Arduino_PF1550_PMIC::begin()
 
 uint8_t Arduino_PF1550_PMIC::getDeviceId()
 {
-  return _io.readRegister(PF1550::Register::PMIC_DEVICE_ID);
+  return _io.readRegister(Register::PMIC_DEVICE_ID);
 }
 
-void Arduino_PF1550_PMIC::configLDO1(PF1550::Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void Arduino_PF1550_PMIC::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO1Voltage(ldo_1_volt);
 
-  if(enable)            _control.turnLDO1On (PF1550::Ldo1Mode::Normal);
-  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Normal);
-  if(enable_in_standby) _control.turnLDO1On (PF1550::Ldo1Mode::Standby);
-  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Standby);
-  if(enable_in_sleep)   _control.turnLDO1On (PF1550::Ldo1Mode::Sleep);
-  else                  _control.turnLDO1Off(PF1550::Ldo1Mode::Sleep);
+  if(enable)            _control.turnLDO1On (Ldo1Mode::Normal);
+  else                  _control.turnLDO1Off(Ldo1Mode::Normal);
+  if(enable_in_standby) _control.turnLDO1On (Ldo1Mode::Standby);
+  else                  _control.turnLDO1Off(Ldo1Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO1On (Ldo1Mode::Sleep);
+  else                  _control.turnLDO1Off(Ldo1Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::configLDO2(PF1550::Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void Arduino_PF1550_PMIC::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO2Voltage(ldo_2_volt);
 
-  if(enable)            _control.turnLDO2On (PF1550::Ldo2Mode::Normal);
-  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Normal);
-  if(enable_in_standby) _control.turnLDO2On (PF1550::Ldo2Mode::Standby);
-  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Standby);
-  if(enable_in_sleep)   _control.turnLDO2On (PF1550::Ldo2Mode::Sleep);
-  else                  _control.turnLDO2Off(PF1550::Ldo2Mode::Sleep);
+  if(enable)            _control.turnLDO2On (Ldo2Mode::Normal);
+  else                  _control.turnLDO2Off(Ldo2Mode::Normal);
+  if(enable_in_standby) _control.turnLDO2On (Ldo2Mode::Standby);
+  else                  _control.turnLDO2Off(Ldo2Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO2On (Ldo2Mode::Sleep);
+  else                  _control.turnLDO2Off(Ldo2Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::configLDO3(PF1550::Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void Arduino_PF1550_PMIC::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO3Voltage(ldo_3_volt);
 
-  if(enable)            _control.turnLDO3On (PF1550::Ldo3Mode::Normal);
-  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Normal);
-  if(enable_in_standby) _control.turnLDO3On (PF1550::Ldo3Mode::Standby);
-  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Standby);
-  if(enable_in_sleep)   _control.turnLDO3On (PF1550::Ldo3Mode::Sleep);
-  else                  _control.turnLDO3Off(PF1550::Ldo3Mode::Sleep);
+  if(enable)            _control.turnLDO3On (Ldo3Mode::Normal);
+  else                  _control.turnLDO3Off(Ldo3Mode::Normal);
+  if(enable_in_standby) _control.turnLDO3On (Ldo3Mode::Standby);
+  else                  _control.turnLDO3Off(Ldo3Mode::Standby);
+  if(enable_in_sleep)   _control.turnLDO3On (Ldo3Mode::Sleep);
+  else                  _control.turnLDO3Off(Ldo3Mode::Sleep);
 }
 
-void Arduino_PF1550_PMIC::setFastChargeCurrent(PF1550::IFastCharge const i_fast_charge)
+void Arduino_PF1550_PMIC::setFastChargeCurrent(IFastCharge const i_fast_charge)
 {
-  uint8_t chg_curr_reg = _io.readRegister(PF1550::Register::CHARGER_CHG_CURR_CFG);
+  uint8_t chg_curr_reg = _io.readRegister(Register::CHARGER_CHG_CURR_CFG);
   chg_curr_reg &= ~REG_CHG_CURR_CFG_CHG_CC_mask;
   chg_curr_reg |= static_cast<uint8_t>(i_fast_charge);
-  _io.writeRegister(PF1550::Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
+  _io.writeRegister(Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
 }
 
-void Arduino_PF1550_PMIC::setFastChargeVoltage(PF1550::VFastCharge const v_fast_charge)
+void Arduino_PF1550_PMIC::setFastChargeVoltage(VFastCharge const v_fast_charge)
 {
-  uint8_t batt_reg = _io.readRegister(PF1550::Register::CHARGER_BATT_REG);
+  uint8_t batt_reg = _io.readRegister(Register::CHARGER_BATT_REG);
   batt_reg &= ~REG_BATT_REG_CHCCV_mask;
   batt_reg |= static_cast<uint8_t>(v_fast_charge);
-  _io.writeRegister(PF1550::Register::CHARGER_BATT_REG, batt_reg);
+  _io.writeRegister(Register::CHARGER_BATT_REG, batt_reg);
 }
 
-void Arduino_PF1550_PMIC::setEndOfChargeCurrent(PF1550::IEndOfCharge const i_end_of_charge)
+void Arduino_PF1550_PMIC::setEndOfChargeCurrent(IEndOfCharge const i_end_of_charge)
 {
-  uint8_t chg_eoc_cnfg = _io.readRegister(PF1550::Register::CHARGER_CHG_EOC_CNFG);
+  uint8_t chg_eoc_cnfg = _io.readRegister(Register::CHARGER_CHG_EOC_CNFG);
   chg_eoc_cnfg &= ~REG_CHG_EOC_CNFG_IEOC_mask;
   chg_eoc_cnfg |= static_cast<uint8_t>(i_end_of_charge);
-  _io.writeRegister(PF1550::Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
+  _io.writeRegister(Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
 }
 
-void Arduino_PF1550_PMIC::setInputCurrentLimit(PF1550::IInputCurrentLimit const i_input_current_limit)
+void Arduino_PF1550_PMIC::setInputCurrentLimit(IInputCurrentLimit const i_input_current_limit)
 {
-  uint8_t vbus_inlim_cnfg = _io.readRegister(PF1550::Register::CHARGER_VBUS_INLIM_CNFG);
+  uint8_t vbus_inlim_cnfg = _io.readRegister(Register::CHARGER_VBUS_INLIM_CNFG);
   vbus_inlim_cnfg &= ~REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask;
   vbus_inlim_cnfg |= static_cast<uint8_t>(i_input_current_limit);
-  _io.writeRegister(PF1550::Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
+  _io.writeRegister(Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
 }
 
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/
 
-static PF1550::PF1550_Io_EnvieH747 io;
+static PF1550_Io_EnvieH747 io;
 
 Arduino_PF1550_PMIC PMIC(io);
