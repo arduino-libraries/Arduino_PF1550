@@ -48,6 +48,9 @@ public:
                      IEndOfCharge       const i_end_of_charge,
                      IInputCurrentLimit const i_input_current_limit);
   
+  /* Interrupt Service Handler for PMIC interrupt *****************************/
+  static void ISR_onPMICEvent();
+
 private:
 
   PF1550_Control _control;

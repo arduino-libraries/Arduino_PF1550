@@ -69,6 +69,9 @@ public:
   /* Miscellaneous ************************************************************/
   uint8_t getDeviceId();
 
+  /* Interrupt Service Handler for PMIC interrupt *****************************/
+  void onPMICEvent();
+
 private:
 
   interface::PF1550_Io & _io;

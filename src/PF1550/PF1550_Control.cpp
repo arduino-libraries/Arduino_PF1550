@@ -122,3 +122,8 @@ uint8_t PF1550_Control::getDeviceId()
 {
   return _io.readRegister(Register::PMIC_DEVICE_ID);
 }
+
+void PF1550_Control::onPMICEvent()
+{
+  /* TODO Implement PMIC Event Handler */
+}
