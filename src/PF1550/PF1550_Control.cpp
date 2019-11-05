@@ -22,6 +22,8 @@
 
 #include "PF1550_Control.h"
 
+#include "util/PF1550_Util.h"
+
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
@@ -125,5 +127,60 @@ uint8_t PF1550_Control::getDeviceId()
 
 void PF1550_Control::onPMICEvent()
 {
-  /* TODO Implement PMIC Event Handler */
+  /* Retrieve the source of the interrupt */
+  uint8_t const int_category = _io.readRegister(Register::PMIC_INT_CATEGORY);
+  
+  /* Call the appopriate event handler */
+  if(isBitSet(int_category, REG_INT_CATEGORY_CHG_INT_bp  )) onChargerEvent           ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_SW1_INT_bp  )) onSwitch1Event           ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_SW2_INT_bp  )) onSwitch2Event           ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_SW3_INT_bp  )) onSwitch3Event           ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_LDO_INT_bp  )) onLdoEvent               ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_ONKEY_INT_bp)) onOnKeyEvent             ();
+  if(isBitSet(int_category, REG_INT_CATEGORY_TEMP_INT_bp )) onTemperatureMonitorEvent();
+  if(isBitSet(int_category, REG_INT_CATEGORY_MISC_INT_bp )) onMiscellaneousEvent     ();
+}
+
+/******************************************************************************
+   PRIVATE MEMBER FUNCTIONS
+ ******************************************************************************/
+
+void PF1550_Control::onChargerEvent()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onSwitch1Event()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onSwitch2Event()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onSwitch3Event()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onLdoEvent()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onOnKeyEvent()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onTemperatureMonitorEvent()
+{
+  /* TODO */
+}
+
+void PF1550_Control::onMiscellaneousEvent()
+{
+  /* TODO */
 }

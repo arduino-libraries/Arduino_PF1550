@@ -23,6 +23,16 @@
    DEFINE
  ******************************************************************************/
 
+/* INT_CATEGORY ***************************************************************/
+#define REG_INT_CATEGORY_CHG_INT_bp             (0)
+#define REG_INT_CATEGORY_SW1_INT_bp             (1)
+#define REG_INT_CATEGORY_SW2_INT_bp             (2)
+#define REG_INT_CATEGORY_SW3_INT_bp             (3)
+#define REG_INT_CATEGORY_LDO_INT_bp             (4)
+#define REG_INT_CATEGORY_ONKEY_INT_bp           (5)
+#define REG_INT_CATEGORY_TEMP_INT_bp            (6)
+#define REG_INT_CATEGORY_MISC_INT_bp            (7)
+
 /* LDO1_CTRL ******************************************************************/
 #define REG_LDO1_CTRL_VLDO1_EN_bp               (0)
 #define REG_LDO1_CTRL_VLDO1_STBY_EN_bp          (1)

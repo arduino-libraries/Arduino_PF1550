@@ -76,6 +76,15 @@ private:
 
   interface::PF1550_Io & _io;
 
+  void onChargerEvent();
+  void onSwitch1Event();
+  void onSwitch2Event();
+  void onSwitch3Event();
+  void onLdoEvent();
+  void onOnKeyEvent();
+  void onTemperatureMonitorEvent();
+  void onMiscellaneousEvent();
+
 };
 
 #endif /* PF1550_CONTROL_H_ */
