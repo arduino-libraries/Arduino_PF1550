@@ -111,11 +111,6 @@ void PF1550::configCharger(IFastCharge        const i_fast_charge,
   _control.setInputCurrentLimit (i_input_current_limit);
 }
 
-void PF1550::ISR_onPMICEvent()
-{
-  PMIC.ISR_onPMICEvent();
-}
-
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/

@@ -28,6 +28,13 @@
 #include "PF1550/PF1550_Control.h"
 
 /******************************************************************************
+   EXTERN DECLARATION
+ ******************************************************************************/
+
+class PF1550; /* Forward declaration of class PF1550 */
+extern PF1550 PMIC;
+
+/******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
@@ -56,19 +63,15 @@ public:
                      IEndOfCharge       const i_end_of_charge,
                      IInputCurrentLimit const i_input_current_limit);
   
-  /* Interrupt Service Handler for PMIC interrupt *****************************/
-  static void ISR_onPMICEvent();
+  /* Static function registered to be executed from within external interrupt ISR */
+  static void ISR_onPMICEvent() { PMIC.onPMICEvent(); }
+  /* Actual PMIC event ISR handler with access to member variables */
+  inline void onPMICEvent() { _control.onPMICEvent(); }
 
 private:
 
   PF1550_Control _control;
 
 };
-
-/******************************************************************************
-   EXTERN DECLARATION
- ******************************************************************************/
-
-extern PF1550 PMIC;
 
 #endif /* ARDUINO_PF1550_H_ */
