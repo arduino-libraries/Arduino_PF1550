@@ -43,7 +43,7 @@ int PF1550::begin()
   return _control.begin();
 }
 
-void PF1550::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO1Voltage(ldo_1_volt);
 
@@ -55,7 +55,7 @@ void PF1550::configLDO1(Ldo1Voltage ldo_1_volt, bool const enable, bool const en
   else                  _control.turnLDO1Off(Ldo1Mode::Sleep);
 }
 
-void PF1550::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO2(Ldo2Voltage const ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO2Voltage(ldo_2_volt);
 
@@ -67,7 +67,7 @@ void PF1550::configLDO2(Ldo2Voltage ldo_2_volt, bool const enable, bool const en
   else                  _control.turnLDO2Off(Ldo2Mode::Sleep);
 }
 
-void PF1550::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
+void PF1550::configLDO3(Ldo3Voltage const ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO3Voltage(ldo_3_volt);
 
