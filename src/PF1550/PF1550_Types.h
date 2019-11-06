@@ -219,4 +219,20 @@ enum class IInputCurrentLimit : uint8_t
   I_1500_mA  = (0x14 << 3),
 };
 
+enum class Sw2Voltage : uint8_t
+{
+  /* Output voltage with DVS disabled (OTP_SWx_DVS_SEL = 1).
+   * This is necessary because otherwise we won't reach the
+   * voltages required by Envie H747 which is 3V3 for SW2.
+   */
+  V_1_10 = 0x00,
+  V_1_20 = 0x01,
+  V_1_35 = 0x02,
+  V_1_50 = 0x03,
+  V_1_80 = 0x04,
+  V_2_50 = 0x05,
+  V_3_00 = 0x06,
+  V_3_30 = 0x07,
+};
+
 #endif /* PF1550_TYPES_H_ */

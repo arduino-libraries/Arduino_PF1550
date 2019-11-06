@@ -79,6 +79,15 @@ void PF1550::configLDO3(Ldo3Voltage ldo_3_volt, bool const enable, bool const en
   else                  _control.turnLDO3Off(Ldo3Mode::Sleep);
 }
 
+void PF1550::configSw2(Sw2Voltage const sw2_volt,
+                       Sw2Voltage const sw2_volt_standby,
+                       Sw2Voltage const sw2_volt_sleep)
+{
+  _control.setSw2Voltage       (sw2_volt);
+  _control.setSw2VoltageStandby(sw2_volt_standby);
+  _control.setSw2VoltageSleep  (sw2_volt_sleep);
+}
+
 void PF1550::configCharger(IFastCharge        const i_fast_charge,
                                         VFastCharge        const v_fast_charge,
                                         IEndOfCharge       const i_end_of_charge,

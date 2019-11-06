@@ -60,6 +60,11 @@ public:
   void turnLDO3On       (Ldo3Mode    const mode);
   void turnLDO3Off      (Ldo3Mode    const mode);
 
+  /* SW2 Configuration ********************************************************/
+  void setSw2Voltage       (Sw2Voltage const sw2_volt);
+  void setSw2VoltageStandby(Sw2Voltage const sw2_volt_standby);
+  void setSw2VoltageSleep  (Sw2Voltage const sw2_volt_sleep);
+
   /* Charger Configuration ****************************************************/
   void setFastChargeCurrent (IFastCharge        const i_fast_charge);
   void setFastChargeVoltage (VFastCharge        const v_fast_charge);

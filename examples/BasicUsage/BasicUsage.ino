@@ -7,6 +7,10 @@ void setup() {
   PMIC.configLDO2(Ldo2Voltage::V_1_80, true, true, false);
   PMIC.configLDO3(Ldo3Voltage::V_1_20, true, true, false);
 
+  PMIC.configSw2(Sw2Voltage::V_3_30,  /* V_SW2 Normal Mode  */
+                 Sw2Voltage::V_3_30,  /* V_SW2 Standby Mode */
+                 Sw2Voltage::V_3_30); /* V_SW2 Sleep Mode   */
+
   PMIC.configCharger(IFastCharge::I_500_mA,
                      VFastCharge::V_3_80,
                      IEndOfCharge::I_5_mA,

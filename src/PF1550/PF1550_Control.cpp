@@ -88,6 +88,21 @@ void PF1550_Control::turnLDO3Off(Ldo3Mode const mode)
   _io.clrBit(Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
 
+void PF1550_Control::setSw2Voltage(Sw2Voltage const sw2_volt)
+{
+  _io.writeRegister(Register::PMIC_SW2_VOLT, static_cast<uint8_t>(sw2_volt));
+}
+
+void PF1550_Control::setSw2VoltageStandby(Sw2Voltage const sw2_volt_standby)
+{
+  _io.writeRegister(Register::PMIC_SW2_STBY_VOLT, static_cast<uint8_t>(sw2_volt_standby));
+}
+
+void PF1550_Control::setSw2VoltageSleep(Sw2Voltage const sw2_volt_sleep)
+{
+  _io.writeRegister(Register::PMIC_SW2_SLP_VOLT, static_cast<uint8_t>(sw2_volt_sleep));
+}
+
 void PF1550_Control::setFastChargeCurrent(IFastCharge const i_fast_charge)
 {
   uint8_t chg_curr_reg = _io.readRegister(Register::CHARGER_CHG_CURR_CFG);
