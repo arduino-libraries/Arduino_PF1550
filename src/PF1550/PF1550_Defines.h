@@ -38,6 +38,9 @@
 #define REG_SW2_CTRL_SW2_STBY_EN_bp             (1)
 #define REG_SW2_CTRL_SW2_OMODE_bp               (2)
 
+/* SW2_CTRL1 ******************************************************************/
+#define REG_SW2_CTRL1_SW2_ILIM_mask             (0x03)
+
 /* LDO1_CTRL ******************************************************************/
 #define REG_LDO1_CTRL_VLDO1_EN_bp               (0)
 #define REG_LDO1_CTRL_VLDO1_STBY_EN_bp          (1)

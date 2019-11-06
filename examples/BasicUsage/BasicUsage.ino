@@ -10,6 +10,7 @@ void setup() {
   PMIC.configSw2(Sw2Voltage::V_3_30, /* V_SW2  Normal  Mode */
                  Sw2Voltage::V_3_30, /* V_SW2  Standby Mode */
                  Sw2Voltage::V_3_30, /* V_SW2  Sleep   Mode */
+                 Sw2CurrentLimit::I_1_5_A, /* Current Limit */
                  true,               /* Enable Normal  Mode */
                  true,               /* Enable Standby Mode */
                  true);              /* Enable Sleep   Mode */

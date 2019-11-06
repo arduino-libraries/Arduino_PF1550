@@ -235,6 +235,14 @@ enum class Sw2Voltage : uint8_t
   V_3_30 = 0x07,
 };
 
+enum class Sw2CurrentLimit : uint8_t
+{
+  I_1_0_A = 0x00,
+  I_1_2_A = 0x01,
+  I_1_5_A = 0x02,
+  I_2_0_A = 0x03,
+};
+
 enum class Sw2Mode : uint8_t
 {
   Normal  = REG_SW2_CTRL_SW2_EN_bp,

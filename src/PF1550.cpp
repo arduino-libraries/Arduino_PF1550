@@ -82,6 +82,7 @@ void PF1550::configLDO3(Ldo3Voltage const ldo_3_volt, bool const enable, bool co
 void PF1550::configSw2(Sw2Voltage const sw2_volt,
                        Sw2Voltage const sw2_volt_standby,
                        Sw2Voltage const sw2_volt_sleep,
+                       Sw2CurrentLimit const sw2_current_limit,
                        bool       const enable,
                        bool       const enable_in_standby,
                        bool       const enable_in_sleep)
@@ -89,6 +90,7 @@ void PF1550::configSw2(Sw2Voltage const sw2_volt,
   _control.setSw2Voltage       (sw2_volt);
   _control.setSw2VoltageStandby(sw2_volt_standby);
   _control.setSw2VoltageSleep  (sw2_volt_sleep);
+  _control.setSw2CurrentLimit  (sw2_current_limit);
 
   if(enable)            _control.turnSw2On (Sw2Mode::Normal);
   else                  _control.turnSw2Off(Sw2Mode::Normal);

@@ -103,6 +103,14 @@ void PF1550_Control::setSw2VoltageSleep(Sw2Voltage const sw2_volt_sleep)
   _io.writeRegister(Register::PMIC_SW2_SLP_VOLT, static_cast<uint8_t>(sw2_volt_sleep));
 }
 
+void PF1550_Control::setSw2CurrentLimit(Sw2CurrentLimit const sw2_current_limit)
+{
+  uint8_t sw2_ctrl1_reg = _io.readRegister(Register::PMIC_SW2_CTRL1);
+  sw2_ctrl1_reg &= ~REG_SW2_CTRL1_SW2_ILIM_mask;
+  sw2_ctrl1_reg |= static_cast<uint8_t>(sw2_current_limit);
+  _io.writeRegister(Register::PMIC_SW2_CTRL1, sw2_ctrl1_reg);
+}
+
 void PF1550_Control::turnSw2On(Sw2Mode const mode)
 {
   _io.setBit(Register::PMIC_SW2_CTRL, static_cast<uint8_t>(mode));

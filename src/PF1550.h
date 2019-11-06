@@ -46,6 +46,7 @@ public:
   void configSw2(Sw2Voltage const sw2_volt,
                  Sw2Voltage const sw2_volt_standby,
                  Sw2Voltage const sw2_volt_sleep,
+                 Sw2CurrentLimit const sw2_current_limit,
                  bool       const enable,
                  bool       const enable_in_standby,
                  bool       const enable_in_sleep);
