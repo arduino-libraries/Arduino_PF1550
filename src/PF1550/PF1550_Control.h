@@ -64,6 +64,8 @@ public:
   void setSw2Voltage       (Sw2Voltage const sw2_volt);
   void setSw2VoltageStandby(Sw2Voltage const sw2_volt_standby);
   void setSw2VoltageSleep  (Sw2Voltage const sw2_volt_sleep);
+  void turnSw2On           (Sw2Mode    const mode);
+  void turnSw2Off          (Sw2Mode    const mode);
 
   /* Charger Configuration ****************************************************/
   void setFastChargeCurrent (IFastCharge        const i_fast_charge);

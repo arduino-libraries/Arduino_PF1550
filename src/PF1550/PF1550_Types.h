@@ -235,4 +235,11 @@ enum class Sw2Voltage : uint8_t
   V_3_30 = 0x07,
 };
 
+enum class Sw2Mode : uint8_t
+{
+  Normal  = REG_SW2_CTRL_SW2_EN_bp,
+  Standby = REG_SW2_CTRL_SW2_STBY_EN_bp,
+  Sleep   = REG_SW2_CTRL_SW2_OMODE_bp,
+};
+
 #endif /* PF1550_TYPES_H_ */

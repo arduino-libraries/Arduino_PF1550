@@ -81,11 +81,21 @@ void PF1550::configLDO3(Ldo3Voltage const ldo_3_volt, bool const enable, bool co
 
 void PF1550::configSw2(Sw2Voltage const sw2_volt,
                        Sw2Voltage const sw2_volt_standby,
-                       Sw2Voltage const sw2_volt_sleep)
+                       Sw2Voltage const sw2_volt_sleep,
+                       bool       const enable,
+                       bool       const enable_in_standby,
+                       bool       const enable_in_sleep)
 {
   _control.setSw2Voltage       (sw2_volt);
   _control.setSw2VoltageStandby(sw2_volt_standby);
   _control.setSw2VoltageSleep  (sw2_volt_sleep);
+
+  if(enable)            _control.turnSw2On (Sw2Mode::Normal);
+  else                  _control.turnSw2Off(Sw2Mode::Normal);
+  if(enable_in_standby) _control.turnSw2On (Sw2Mode::Standby);
+  else                  _control.turnSw2Off(Sw2Mode::Standby);
+  if(enable_in_sleep)   _control.turnSw2On (Sw2Mode::Sleep);
+  else                  _control.turnSw2Off(Sw2Mode::Sleep);
 }
 
 void PF1550::configCharger(IFastCharge        const i_fast_charge,

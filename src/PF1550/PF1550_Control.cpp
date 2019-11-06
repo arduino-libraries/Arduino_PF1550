@@ -103,6 +103,16 @@ void PF1550_Control::setSw2VoltageSleep(Sw2Voltage const sw2_volt_sleep)
   _io.writeRegister(Register::PMIC_SW2_SLP_VOLT, static_cast<uint8_t>(sw2_volt_sleep));
 }
 
+void PF1550_Control::turnSw2On(Sw2Mode const mode)
+{
+  _io.setBit(Register::PMIC_SW2_CTRL, static_cast<uint8_t>(mode));
+}
+
+void PF1550_Control::turnSw2Off(Sw2Mode const mode)
+{
+  _io.clrBit(Register::PMIC_SW2_CTRL, static_cast<uint8_t>(mode));
+}
+
 void PF1550_Control::setFastChargeCurrent(IFastCharge const i_fast_charge)
 {
   uint8_t chg_curr_reg = _io.readRegister(Register::CHARGER_CHG_CURR_CFG);

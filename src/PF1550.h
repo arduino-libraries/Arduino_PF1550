@@ -45,7 +45,10 @@ public:
 
   void configSw2(Sw2Voltage const sw2_volt,
                  Sw2Voltage const sw2_volt_standby,
-                 Sw2Voltage const sw2_volt_sleep);
+                 Sw2Voltage const sw2_volt_sleep,
+                 bool       const enable,
+                 bool       const enable_in_standby,
+                 bool       const enable_in_sleep);
 
   void configCharger(IFastCharge        const i_fast_charge,
                      VFastCharge        const v_fast_charge,
