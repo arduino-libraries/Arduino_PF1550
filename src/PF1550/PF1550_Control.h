@@ -61,12 +61,12 @@ public:
   void turnLDO3Off      (Ldo3Mode    const mode);
 
   /* SW2 Configuration ********************************************************/
-  void setSw2Voltage       (Sw2Voltage const sw2_volt);
-  void setSw2VoltageStandby(Sw2Voltage const sw2_volt_standby);
-  void setSw2VoltageSleep  (Sw2Voltage const sw2_volt_sleep);
+  void setSw2Voltage       (Sw2Voltage      const sw2_volt);
+  void setSw2VoltageStandby(Sw2Voltage      const sw2_volt_standby);
+  void setSw2VoltageSleep  (Sw2Voltage      const sw2_volt_sleep);
   void setSw2CurrentLimit  (Sw2CurrentLimit const sw2_current_limit);
-  void turnSw2On           (Sw2Mode    const mode);
-  void turnSw2Off          (Sw2Mode    const mode);
+  void turnSw2On           (Sw2Mode         const mode);
+  void turnSw2Off          (Sw2Mode         const mode);
 
   /* Charger Configuration ****************************************************/
   void setFastChargeCurrent (IFastCharge        const i_fast_charge);

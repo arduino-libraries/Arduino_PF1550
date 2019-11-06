@@ -43,13 +43,13 @@ public:
   void configLDO2(Ldo2Voltage const ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
   void configLDO3(Ldo3Voltage const ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
 
-  void configSw2(Sw2Voltage const sw2_volt,
-                 Sw2Voltage const sw2_volt_standby,
-                 Sw2Voltage const sw2_volt_sleep,
+  void configSw2(Sw2Voltage      const sw2_volt,
+                 Sw2Voltage      const sw2_volt_standby,
+                 Sw2Voltage      const sw2_volt_sleep,
                  Sw2CurrentLimit const sw2_current_limit,
-                 bool       const enable,
-                 bool       const enable_in_standby,
-                 bool       const enable_in_sleep);
+                 bool            const enable,
+                 bool            const enable_in_standby,
+                 bool            const enable_in_sleep);
 
   void configCharger(IFastCharge        const i_fast_charge,
                      VFastCharge        const v_fast_charge,
