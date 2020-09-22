@@ -41,26 +41,26 @@ PF1550_Io_EnvieH747::PF1550_Io_EnvieH747(uint8_t const i2c_addr)
 
 int PF1550_Io_EnvieH747::begin()
 {
-  Wire.begin();
+  Wire1.begin();
   return 1;
 }
 
 uint8_t PF1550_Io_EnvieH747::readRegister(Register const reg)
 {
-  Wire.beginTransmission(_i2c_addr);
-  Wire.write(static_cast<uint8_t>(reg));
-  Wire.endTransmission();
-  Wire.requestFrom(_i2c_addr, 1);
-  uint8_t const reg_val = Wire.available() ? Wire.read() : 0;
+  Wire1.beginTransmission(_i2c_addr);
+  Wire1.write(static_cast<uint8_t>(reg));
+  Wire1.endTransmission();
+  Wire1.requestFrom(_i2c_addr, 1);
+  uint8_t const reg_val = Wire1.available() ? Wire1.read() : 0;
   return reg_val;
 }
 
 void PF1550_Io_EnvieH747::writeRegister(Register const reg, uint8_t const val)
 {
-  Wire.beginTransmission(_i2c_addr);
-  Wire.write(static_cast<uint8_t>(reg));
-  Wire.write(val);
-  Wire.endTransmission();
+  Wire1.beginTransmission(_i2c_addr);
+  Wire1.write(static_cast<uint8_t>(reg));
+  Wire1.write(val);
+  Wire1.endTransmission();
 }
 
 void PF1550_Io_EnvieH747::setSTANDBY()
