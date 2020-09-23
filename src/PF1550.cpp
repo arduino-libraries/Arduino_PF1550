@@ -29,7 +29,8 @@
  ******************************************************************************/
 
 PF1550::PF1550(interface::PF1550_Io & io)
-: _control(io)
+: _control(io),
+  _debug(NULL)
 {
 
 }
@@ -40,7 +41,15 @@ PF1550::PF1550(interface::PF1550_Io & io)
 
 int PF1550::begin()
 {
+  if (_debug) {
+    _debug->println("PF1550 begin");
+  }
   return _control.begin();
+}
+
+void PF1550::debug(Stream& stream)
+{
+  _debug = &stream;
 }
 
 void PF1550::writePMICreg(Register const reg_addr, uint8_t val)

@@ -22,7 +22,7 @@
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
-
+#include "Arduino.h"
 #include "PF1550/interface/PF1550_Io.h"
 #include "PF1550/PF1550_Types.h"
 #include "PF1550/PF1550_Control.h"
@@ -46,6 +46,8 @@ public:
   PF1550(interface::PF1550_Io & io);
 
   int begin();
+
+  void debug(Stream& stream);
 
   void writePMICreg(Register const reg_addr, uint8_t val);
   uint8_t readPMICreg(Register const reg_addr);
@@ -75,6 +77,8 @@ public:
 private:
 
   PF1550_Control _control;
+
+  Stream* _debug;
 
 };
 
