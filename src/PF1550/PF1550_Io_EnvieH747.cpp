@@ -21,7 +21,7 @@
  ******************************************************************************/
 
 #include "PF1550_Io_EnvieH747.h"
-
+#include "PF1550.h"
 #include <Arduino.h>
 #include <Wire.h>
 
