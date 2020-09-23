@@ -25,6 +25,7 @@
 
 #include "PF1550_Types.h"
 #include "interface/PF1550_Io.h"
+#include "Arduino.h"
 
 /******************************************************************************
    CONSTANT
@@ -45,9 +46,11 @@ public:
 
 
   int begin();
+  void debug(Stream& stream);
 
-  void writeReg(Register const addr, uint8_t val);
-  uint8_t readReg(Register const addr);
+  void setBit(Register const reg, uint8_t const bit_pos);
+  void writeReg(Register const reg_addr, uint8_t val);
+  void readReg(Register const reg_addr, uint8_t *data);
 
   /* LDO1 Configuration *******************************************************/
   void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);
@@ -94,6 +97,8 @@ private:
   void onOnKeyEvent();
   void onTemperatureMonitorEvent();
   void onMiscellaneousEvent();
+
+  Stream* _debug;
 
 };
 

@@ -50,6 +50,7 @@ int PF1550::begin()
 void PF1550::debug(Stream& stream)
 {
   _debug = &stream;
+  _control.debug(stream);
 }
 
 void PF1550::setPMICbit(Register const reg_addr, uint8_t posBit)
@@ -59,12 +60,29 @@ void PF1550::setPMICbit(Register const reg_addr, uint8_t posBit)
 
 void PF1550::writePMICreg(Register const reg_addr, uint8_t val)
 {
+  if (_debug) {
+    _debug->print("PF1550::writePMICreg at address=");
+    _debug->print((uint8_t)reg_addr, HEX);
+    _debug->print(" data=");
+    _debug->println(val, HEX);
+  }
+
   _control.writeReg(reg_addr, val);
 }
 
 uint8_t PF1550::readPMICreg(Register const reg_addr)
 {
-  return _control.readReg(reg_addr);
+  uint8_t reg_val;
+  _control.readReg(reg_addr, &reg_val);
+
+  if (_debug) {
+    _debug->print("PF1550::readPMICreg from address=");
+    _debug->print((uint8_t)reg_addr, HEX);
+    _debug->print(" data=");
+    _debug->println(reg_val, HEX);
+  }
+
+  return reg_val;
 }
 
 void PF1550::configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
