@@ -26,6 +26,7 @@
 #include "PF1550/interface/PF1550_Io.h"
 #include "PF1550/PF1550_Types.h"
 #include "PF1550/PF1550_Control.h"
+#include "PF1550/PF1550_Register.h"
 
 /******************************************************************************
    EXTERN DECLARATION
@@ -45,6 +46,9 @@ public:
   PF1550(interface::PF1550_Io & io);
 
   int begin();
+
+  void writePMICreg(Register const reg_addr, uint8_t val);
+  uint8_t readPMICreg(Register const reg_addr);
 
   void configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
   void configLDO2(Ldo2Voltage const ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);

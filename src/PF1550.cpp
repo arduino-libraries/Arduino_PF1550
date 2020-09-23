@@ -43,6 +43,16 @@ int PF1550::begin()
   return _control.begin();
 }
 
+void PF1550::writePMICreg(Register const reg_addr, uint8_t val)
+{
+  _control.writeReg(reg_addr, val);
+}
+
+uint8_t PF1550::readPMICreg(Register const reg_addr)
+{
+  return _control.readReg(reg_addr);
+}
+
 void PF1550::configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep)
 {
   _control.setLDO1Voltage(ldo_1_volt);

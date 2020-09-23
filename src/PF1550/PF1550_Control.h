@@ -46,6 +46,8 @@ public:
 
   int begin();
 
+  void writeReg(Register const addr, uint8_t val);
+  uint8_t readReg(Register const addr);
 
   /* LDO1 Configuration *******************************************************/
   void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);

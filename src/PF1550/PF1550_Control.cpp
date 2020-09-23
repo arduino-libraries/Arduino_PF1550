@@ -43,6 +43,16 @@ int PF1550_Control::begin()
   return _io.begin();
 }
 
+void PF1550_Control::writeReg(Register const addr, uint8_t val)
+{
+  _io.writeRegister(addr, val);
+}
+
+uint8_t PF1550_Control::readReg(Register const addr)
+{
+  return _io.readRegister(addr);
+}
+
 void PF1550_Control::setLDO1Voltage(Ldo1Voltage const ldo1_volt)
 {
   _io.writeRegister(Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
