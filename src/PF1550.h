@@ -51,6 +51,7 @@ public:
 
   void debug(Stream& stream);
 
+  void setPMICbit(Register const reg_addr, uint8_t posBit);
   void writePMICreg(Register const reg_addr, uint8_t val);
   uint8_t readPMICreg(Register const reg_addr);
 

@@ -52,6 +52,11 @@ void PF1550::debug(Stream& stream)
   _debug = &stream;
 }
 
+void PF1550::setPMICbit(Register const reg_addr, uint8_t posBit)
+{
+  _control.setBit(reg_addr, posBit);
+}
+
 void PF1550::writePMICreg(Register const reg_addr, uint8_t val)
 {
   _control.writeReg(reg_addr, val);
