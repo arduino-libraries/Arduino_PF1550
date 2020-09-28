@@ -3,6 +3,8 @@
 
 #define Serial Serial1
 
+uint8_t regVal;
+
 void setup() {
   Serial.begin(115200);
   while(!Serial);
@@ -11,15 +13,28 @@ void setup() {
 
   PMIC.debug(Serial);
 
-  PMIC.writePMICreg(Register::CHARGER_CHG_EOC_CNFG, 0x41);
-  uint8_t regVal = PMIC.readPMICreg(Register::CHARGER_CHG_EOC_CNFG);
-
-  Serial.print("Register value: ");
-  Serial.println(regVal);
-
 }
 
 
 void loop() {
+  PMIC.writePMICreg(Register::CHARGER_CHG_EOC_CNFG, 0x41);
+  regVal = PMIC.readPMICreg(Register::CHARGER_CHG_EOC_CNFG);
+
+  Serial.print("CHARGER_CHG_SNS register value: ");
+  Serial.println(regVal,HEX);
+  
+  regVal = PMIC.readPMICreg(Register::CHARGER_VBUS_SNS);
+
+  Serial.print("CHARGER_VBUS_SNS register value: ");
+  Serial.println(regVal,HEX);
+  
+  regVal = PMIC.readPMICreg(Register::CHARGER_CHG_INT_OK);
+
+  Serial.print("CHARGER_CHG_INT_OK register value: ");
+  Serial.println(regVal,HEX);
+  Serial.println();
+  Serial.println();
+
+  delay(5000);
   
 }
