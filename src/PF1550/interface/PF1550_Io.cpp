@@ -20,6 +20,7 @@
    INCLUDE
  ******************************************************************************/
 
+#include "PF1550.h"
 #include "PF1550_Io.h"
 
 #include <assert.h>
@@ -38,17 +39,27 @@ namespace interface
 void PF1550_Io::setBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
-  uint8_t reg_val = readRegister(reg);
+  uint8_t reg_val;
+  readRegister(reg, &reg_val);
   reg_val |= (1<<bit_pos);
-  writeRegister(reg, reg_val);
+
+  uint8_t i2c_data[2];
+  i2c_data[0] = (uint8_t)reg;
+  i2c_data[1] = reg_val;
+  writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
 }
 
 void PF1550_Io::clrBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
-  uint8_t reg_val = readRegister(reg);
+  uint8_t reg_val;
+  readRegister(reg, &reg_val);
   reg_val &= ~(1<<bit_pos);
-  writeRegister(reg, reg_val);
+
+  uint8_t i2c_data[2];
+  i2c_data[0] = (uint8_t)reg;
+  i2c_data[1] = reg_val;
+  writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
 }
 
 /******************************************************************************

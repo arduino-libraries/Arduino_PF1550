@@ -24,6 +24,8 @@
 
 #include "util/PF1550_Util.h"
 
+#include "PF1550.h"
+
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
@@ -43,9 +45,42 @@ int PF1550_Control::begin()
   return _io.begin();
 }
 
+void PF1550_Control::debug(Stream& stream)
+{
+  _debug = &stream;
+  _io.debug(stream);
+}
+
+void PF1550_Control::setBit(Register const reg, uint8_t const bit_pos)
+{
+  _io.setBit(reg, bit_pos);
+}
+
+void PF1550_Control::writeReg(Register const reg_addr, uint8_t val)
+{
+  uint8_t i2c_data[2];
+  
+  i2c_data[0] = (uint8_t)reg_addr;
+  i2c_data[1] = val;
+
+  if (_debug) {
+    _debug->print("PF1550_Control::writeReg at address=");
+    _debug->print(i2c_data[0], HEX);
+    _debug->print(" data=");
+    _debug->println(i2c_data[1], HEX);
+  }
+
+  _io.writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
+}
+
+void PF1550_Control::readReg(Register const reg_addr, uint8_t *data)
+{
+  _io.readRegister(reg_addr, data);
+}
+
 void PF1550_Control::setLDO1Voltage(Ldo1Voltage const ldo1_volt)
 {
-  _io.writeRegister(Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
+  writeReg(Register::PMIC_LDO1_VOLT, static_cast<uint8_t>(ldo1_volt));
 }
 
 void PF1550_Control::turnLDO1On(Ldo1Mode const mode)
@@ -60,7 +95,7 @@ void PF1550_Control::turnLDO1Off(Ldo1Mode const mode)
 
 void PF1550_Control::setLDO2Voltage(Ldo2Voltage const ldo2_volt)
 {
-  _io.writeRegister(Register::PMIC_LDO2_VOLT, static_cast<uint8_t>(ldo2_volt));
+  writeReg(Register::PMIC_LDO2_VOLT, static_cast<uint8_t>(ldo2_volt));
 }
 
 void PF1550_Control::turnLDO2On(Ldo2Mode const mode)
@@ -75,7 +110,7 @@ void PF1550_Control::turnLDO2Off(Ldo2Mode const mode)
 
 void PF1550_Control::setLDO3Voltage(Ldo3Voltage const ldo3_volt)
 {
-  _io.writeRegister(Register::PMIC_LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
+  writeReg(Register::PMIC_LDO3_VOLT, static_cast<uint8_t>(ldo3_volt));
 }
 
 void PF1550_Control::turnLDO3On(Ldo3Mode const mode)
@@ -90,25 +125,27 @@ void PF1550_Control::turnLDO3Off(Ldo3Mode const mode)
 
 void PF1550_Control::setSw2Voltage(Sw2Voltage const sw2_volt)
 {
-  _io.writeRegister(Register::PMIC_SW2_VOLT, static_cast<uint8_t>(sw2_volt));
+  writeReg(Register::PMIC_SW2_VOLT, static_cast<uint8_t>(sw2_volt));
 }
 
 void PF1550_Control::setSw2VoltageStandby(Sw2Voltage const sw2_volt_standby)
 {
-  _io.writeRegister(Register::PMIC_SW2_STBY_VOLT, static_cast<uint8_t>(sw2_volt_standby));
+  writeReg(Register::PMIC_SW2_STBY_VOLT, static_cast<uint8_t>(sw2_volt_standby));
 }
 
 void PF1550_Control::setSw2VoltageSleep(Sw2Voltage const sw2_volt_sleep)
 {
-  _io.writeRegister(Register::PMIC_SW2_SLP_VOLT, static_cast<uint8_t>(sw2_volt_sleep));
+  writeReg(Register::PMIC_SW2_SLP_VOLT, static_cast<uint8_t>(sw2_volt_sleep));
 }
 
 void PF1550_Control::setSw2CurrentLimit(Sw2CurrentLimit const sw2_current_limit)
 {
-  uint8_t sw2_ctrl1_reg = _io.readRegister(Register::PMIC_SW2_CTRL1);
+  uint8_t sw2_ctrl1_reg;
+  _io.readRegister(Register::PMIC_SW2_CTRL1, &sw2_ctrl1_reg);
   sw2_ctrl1_reg &= ~REG_SW2_CTRL1_SW2_ILIM_mask;
   sw2_ctrl1_reg |= static_cast<uint8_t>(sw2_current_limit);
-  _io.writeRegister(Register::PMIC_SW2_CTRL1, sw2_ctrl1_reg);
+
+  writeReg(Register::PMIC_SW2_CTRL1, sw2_ctrl1_reg);
 }
 
 void PF1550_Control::turnSw2On(Sw2Mode const mode)
@@ -123,45 +160,56 @@ void PF1550_Control::turnSw2Off(Sw2Mode const mode)
 
 void PF1550_Control::setFastChargeCurrent(IFastCharge const i_fast_charge)
 {
-  uint8_t chg_curr_reg = _io.readRegister(Register::CHARGER_CHG_CURR_CFG);
+  uint8_t chg_curr_reg;
+  _io.readRegister(Register::CHARGER_CHG_CURR_CFG, &chg_curr_reg);
   chg_curr_reg &= ~REG_CHG_CURR_CFG_CHG_CC_mask;
   chg_curr_reg |= static_cast<uint8_t>(i_fast_charge);
-  _io.writeRegister(Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
+
+  writeReg(Register::CHARGER_CHG_CURR_CFG, chg_curr_reg);
 }
 
 void PF1550_Control::setFastChargeVoltage(VFastCharge const v_fast_charge)
 {
-  uint8_t batt_reg = _io.readRegister(Register::CHARGER_BATT_REG);
+  uint8_t batt_reg;
+  _io.readRegister(Register::CHARGER_BATT_REG, &batt_reg);
   batt_reg &= ~REG_BATT_REG_CHCCV_mask;
   batt_reg |= static_cast<uint8_t>(v_fast_charge);
-  _io.writeRegister(Register::CHARGER_BATT_REG, batt_reg);
+
+  writeReg(Register::CHARGER_BATT_REG, batt_reg);
 }
 
 void PF1550_Control::setEndOfChargeCurrent(IEndOfCharge const i_end_of_charge)
 {
-  uint8_t chg_eoc_cnfg = _io.readRegister(Register::CHARGER_CHG_EOC_CNFG);
+  uint8_t chg_eoc_cnfg;
+  _io.readRegister(Register::CHARGER_CHG_EOC_CNFG, &chg_eoc_cnfg);
   chg_eoc_cnfg &= ~REG_CHG_EOC_CNFG_IEOC_mask;
   chg_eoc_cnfg |= static_cast<uint8_t>(i_end_of_charge);
-  _io.writeRegister(Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
+
+  writeReg(Register::CHARGER_CHG_EOC_CNFG, chg_eoc_cnfg);
 }
 
 void PF1550_Control::setInputCurrentLimit(IInputCurrentLimit const i_input_current_limit)
 {
-  uint8_t vbus_inlim_cnfg = _io.readRegister(Register::CHARGER_VBUS_INLIM_CNFG);
+  uint8_t vbus_inlim_cnfg;
+  _io.readRegister(Register::CHARGER_VBUS_INLIM_CNFG, &vbus_inlim_cnfg);
   vbus_inlim_cnfg &= ~REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask;
   vbus_inlim_cnfg |= static_cast<uint8_t>(i_input_current_limit);
-  _io.writeRegister(Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
+
+  writeReg(Register::CHARGER_VBUS_INLIM_CNFG, vbus_inlim_cnfg);
 }
 
 uint8_t PF1550_Control::getDeviceId()
 {
-  return _io.readRegister(Register::PMIC_DEVICE_ID);
+  uint8_t deviceId;
+  _io.readRegister(Register::PMIC_DEVICE_ID, &deviceId);
+  return deviceId;
 }
 
 void PF1550_Control::onPMICEvent()
 {
   /* Retrieve the source of the interrupt */
-  uint8_t const int_category = _io.readRegister(Register::PMIC_INT_CATEGORY);
+  uint8_t int_category;
+  _io.readRegister(Register::PMIC_INT_CATEGORY, &int_category);
   
   /* Call the appopriate event handler */
   if(isBitSet(int_category, REG_INT_CATEGORY_CHG_INT_bp  )) onChargerEvent           ();
