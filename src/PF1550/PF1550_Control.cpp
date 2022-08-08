@@ -211,7 +211,7 @@ void PF1550_Control::onPMICEvent()
   uint8_t int_category;
   _io.readRegister(Register::PMIC_INT_CATEGORY, &int_category);
   
-  /* Call the appopriate event handler */
+  /* Call the appropriate event handler */
   if(isBitSet(int_category, REG_INT_CATEGORY_CHG_INT_bp  )) onChargerEvent           ();
   if(isBitSet(int_category, REG_INT_CATEGORY_SW1_INT_bp  )) onSwitch1Event           ();
   if(isBitSet(int_category, REG_INT_CATEGORY_SW2_INT_bp  )) onSwitch2Event           ();

@@ -31,7 +31,7 @@
 
 enum class Register : uint8_t
 {
-  /* PMIC Register Adresses */
+  /* PMIC Register Addresses */
   PMIC_DEVICE_ID            = 0x00,
   PMIC_OTP_FLAVOR           = 0x01,
   PMIC_SILICON_REV          = 0x02,
@@ -96,7 +96,7 @@ enum class Register : uint8_t
   PMIC_I2C_ADDR             = 0x68,
   PMIC_RC_16MHZ             = 0x6B,
   PMIC_KEY1                 = 0x6B,
-  /* Charger Register Adresses */
+  /* Charger Register Addresses */
   CHARGER_CHG_INT           = 0x80 + 0x00,
   CHARGER_CHG_INT_MASK      = 0x80 + 0x02,
   CHARGER_CHG_INT_OK        = 0x80 + 0x04,
