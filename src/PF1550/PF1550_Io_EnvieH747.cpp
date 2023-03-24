@@ -46,11 +46,6 @@ int PF1550_Io_EnvieH747::begin()
   return 1;
 }
 
-void PF1550_Io_EnvieH747::debug(Stream& stream)
-{
-  _debug = &stream;
-}
-
 void PF1550_Io_EnvieH747::readRegister(Register const reg_addr, uint8_t *data)
 {
   uint8_t i2c_data[2];

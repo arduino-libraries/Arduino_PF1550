@@ -39,7 +39,6 @@ public:
   virtual ~PF1550_Io_EnvieH747() { }
 
   virtual int     begin        ()                                                                     override;
-  virtual void    debug        (Stream& stream)                                                       override;
   virtual void    readRegister (Register const reg_addr, uint8_t *data)                               override;
   virtual void    writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart) override;
   virtual void    setSTANDBY   ()                                                                     override;

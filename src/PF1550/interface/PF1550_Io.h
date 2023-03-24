@@ -50,8 +50,11 @@ public:
 
   virtual ~PF1550_Io() { }
 
+
+  void debug (Stream& stream) { _debug = &stream; }
+
+
   virtual int     begin        ()                                                                     = 0;
-  virtual void    debug        (Stream& stream)                                                       = 0;
   virtual void    readRegister (Register const reg_addr, uint8_t *data)                               = 0;
   virtual void    writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart) = 0;
   virtual void    setSTANDBY   ()                                                                     = 0;
@@ -60,6 +63,9 @@ public:
           void    setBit       (Register const reg, uint8_t const bit_pos);
           void    clrBit       (Register const reg, uint8_t const bit_pos);
 
+
+protected:
+  Stream * _debug;
 };
 
 /******************************************************************************

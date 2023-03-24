@@ -54,11 +54,6 @@ int PF1550_Io_C33::begin()
   return 1;
 }
 
-void PF1550_Io_C33::debug(Stream& stream)
-{
-  _debug = &stream;
-}
-
 void PF1550_Io_C33::readRegister(Register const reg_addr, uint8_t * data)
 {
   uint8_t i2c_data[2];
