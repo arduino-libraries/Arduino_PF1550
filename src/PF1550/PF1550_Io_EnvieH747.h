@@ -35,7 +35,7 @@ class PF1550_Io_EnvieH747 : public interface::PF1550_Io
 
 public:
 
-           PF1550_Io_EnvieH747(uint8_t const i2c_addr = interface::PF1550_I2C_DEFAULT_ADDR);
+           PF1550_Io_EnvieH747(uint8_t const i2c_addr);
   virtual ~PF1550_Io_EnvieH747() { }
 
   virtual int     begin        ()                                                                     override;
