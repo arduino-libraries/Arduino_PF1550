@@ -40,7 +40,7 @@ jobs:
             # See: https://github.com/arduino/compile-sketches#platforms
             platforms: |
               - name: arduino:mbed_nicla
-          - fqbn: arduino:mbed_portenta:envie_m4
+          - fqbn: arduino:mbed_portenta:envie_m7:target_core=cm4
             platforms: |
               - name: arduino:mbed_portenta
           - fqbn: arduino:mbed_portenta:envie_m7
