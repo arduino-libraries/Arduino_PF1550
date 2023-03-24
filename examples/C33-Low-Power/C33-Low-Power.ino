@@ -3,107 +3,15 @@
 #include "PF1550.h"
 #include "Wire.h"
 
-class PF1550_Io_C33 : public interface::PF1550_Io
+/*
+class PF1550_Io_C33 : public PF1550_Io_C33
 {
-  public:
-
-    PF1550_Io_C33(uint8_t const i2c_addr = interface::PF1550_I2C_DEFAULT_ADDR) : _i2c_addr(i2c_addr) {}
-    virtual ~PF1550_Io_C33() { }
-
-    void turnOffMCURail() {
-      clrBit(Register::PMIC_SW1_CTRL, 0);
-      //clrBit(Register::PMIC_SW3_CTRL, 0);
-    }
-
-    virtual int begin() {
-      Wire3.begin();
-      Wire3.setClock(100000);
-      uint8_t data[2] = { 0x9C, (1 << 7) };
-      writeRegister(PF1550_I2C_ADDR, data, 2, false);
-      data[0] = 0x9E;
-      data[1] = (1 << 5);
-      writeRegister(PF1550_I2C_ADDR, data, 2, false);
-
-      return 1;
-    }
-
-    virtual void debug(Stream& stream) {
-      _debug = &stream;
-    }
-
-    virtual void readRegister(Register const reg_addr, uint8_t *data) {
-      uint8_t i2c_data[2];
-
-      i2c_data[0] = (uint8_t)reg_addr;
-
-      writeRegister(PF1550_I2C_ADDR, i2c_data, 1, 1);
-
-      uint8_t retVal = Wire3.requestFrom(PF1550_I2C_ADDR, 1, true);
-
-      if (_debug) {
-        _debug->print("requestFrom: ");
-        _debug->println(retVal);
-      }
-
-      int i = 0;
-      while (Wire3.available() && i < 1) {
-        data[0] = Wire3.read();
-        i++;
-      }
-
-      if (_debug) {
-        _debug->println("Read:");
-        for (i = 0; i < 1; i++) {
-          _debug->println(data[i], HEX);
-        }
-      }
-    }
-
-    virtual void writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart) {
-      if (_debug) {
-        _debug->print("Restart: ");
-        _debug->println(restart);
-        if (!restart) {
-          _debug->print("PF1550_Io_EnvieH747::writeRegister at address=");
-          _debug->print(data[0], HEX);
-          _debug->print(" data=");
-          _debug->println(data[1], HEX);
-          _debug->print("i2c slave address: ");
-          _debug->println(slave_addr);
-        } else {
-          _debug->print("PF1550_Io_EnvieH747::Read from register at address=");
-          _debug->println(data[0], HEX);
-        }
-      }
-
-      Wire3.beginTransmission(slave_addr);
-      Wire3.write(data, data_len);
-      uint8_t retVal = Wire3.endTransmission(restart == 0 ? true : false);
-
-      if (_debug) {
-        _debug->print("End transmission: ");
-        _debug->println(retVal);
-      }
-      /*
-        if (_debug) {
-        _debug->println("Write:");
-        for (int i = 0; i < data_len; i++) {
-          _debug->println(data[i], HEX);
-        }
-        }
-      */
-    }
-    virtual void setSTANDBY() {}
-    virtual void clrSTANDBY() {}
-
-  private:
-
-    uint8_t const _i2c_addr;
-    Stream* _debug;
+  void turnOffMCURail() {
+    clrBit(Register::PMIC_SW1_CTRL, 0);
+    //clrBit(Register::PMIC_SW3_CTRL, 0);
+  }
 };
-
-static PF1550_Io_C33 io;
-PF1550 myPMIC(io);
+*/
 
 const int LED_ON_INTERRUPT  = LED_BUILTIN;
 
@@ -132,13 +40,14 @@ lpm_cfg_t p_cfg;
 
 void setup() {
   Serial.begin(9600);
+  while (!Serial) { }
 
-  myPMIC.debug(Serial);
-  myPMIC.begin();
-  myPMIC.configLDO1(Ldo1Voltage::V_3_30, false, false, false);
-  myPMIC.configLDO2(Ldo2Voltage::V_3_30, false, false, false);
-  myPMIC.configLDO3(Ldo3Voltage::V_1_20, false, false, false);
-  myPMIC.configSw2(Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2CurrentLimit::I_1_5_A, false, false, false);
+  PMIC.debug(Serial);
+  PMIC.begin();
+  PMIC.configLDO1(Ldo1Voltage::V_3_30, false, false, false);
+  PMIC.configLDO2(Ldo2Voltage::V_3_30, false, false, false);
+  PMIC.configLDO3(Ldo3Voltage::V_1_20, false, false, false);
+  PMIC.configSw2(Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2CurrentLimit::I_1_5_A, false, false, false);
 
   //io.turnOffMCURail();
 
