@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map for Arduino_PF1550
+#######################################
+
+#######################################
+# Class (KEYWORD1)
+#######################################
+
+PF1550	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+debug	KEYWORD2
+setPMICbit	KEYWORD2
+writePMICreg	KEYWORD2
+readPMICreg	KEYWORD2
+configLDO1	KEYWORD2
+configLDO2	KEYWORD2
+configLDO3	KEYWORD2
+configSw2	KEYWORD2
+configCharger	KEYWORD2
+ISR_onPMICEvent	KEYWORD2
+onPMICEvent	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+PF1550_I2C_ADDR	LITERAL1
