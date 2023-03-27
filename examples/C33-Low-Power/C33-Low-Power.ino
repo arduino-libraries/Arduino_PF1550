@@ -1,55 +1,36 @@
+#include <Arduino_PMIC.h>
+
+#include <Wire.h>
+
 #include "RTC.h"
 #include "r_lpm.h"
-#include "PF1550.h"
-#include "Wire.h"
 
-/*
-class PF1550_Io_C33 : public PF1550_Io_C33
+void periodic_cbk()
 {
-  void turnOffMCURail() {
-    clrBit(Register::PMIC_SW1_CTRL, 0);
-    //clrBit(Register::PMIC_SW3_CTRL, 0);
-  }
-};
-*/
-
-const int LED_ON_INTERRUPT  = LED_BUILTIN;
-
-void periodic_cbk() {
-  static bool clb_st = false;
-  if (clb_st) {
-    //digitalWrite(LED_ON_INTERRUPT, HIGH);
-  }
-  else {
-    //digitalWrite(LED_ON_INTERRUPT, LOW);
-  }
-  clb_st = !clb_st;
-
-  Serial.println("PERIODIC INTERRUPT");
+ digitalWrite(LEDR, !digitalRead(LEDR));
 }
 
-void alarm_cbk() {
-  Serial.println("ALARM INTERRUPT");
-  digitalWrite(LED_ON_INTERRUPT, LOW);
+void alarm_cbk()
+{
+  digitalWrite(LED_BUILTIN, LOW);
   delay(500);
-  digitalWrite(LED_ON_INTERRUPT, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 lpm_instance_ctrl_t p_api_ctrl;
 lpm_cfg_t p_cfg;
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   while (!Serial) { }
 
-  PMIC.debug(Serial);
+  //PMIC.debug(Serial);
   PMIC.begin();
   PMIC.configLDO1(Ldo1Voltage::V_3_30, false, false, false);
   PMIC.configLDO2(Ldo2Voltage::V_3_30, false, false, false);
   PMIC.configLDO3(Ldo3Voltage::V_1_20, false, false, false);
   PMIC.configSw2(Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2CurrentLimit::I_1_5_A, false, false, false);
-
-  //io.turnOffMCURail();
 
   p_cfg.low_power_mode = LPM_MODE_DEEP; //  LPM_MODE_SLEEP  LPM_MODE_STANDBY    LPM_MODE_STANDBY_SNOOZE    LPM_MODE_DEEP
   p_cfg.standby_wake_sources = LPM_STANDBY_WAKE_SOURCE_IRQ0 | LPM_STANDBY_WAKE_SOURCE_RTCALM;
@@ -61,66 +42,57 @@ void setup() {
 
   R_LPM_Open(&p_api_ctrl, &p_cfg);
 
-  //pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(LED_ON_INTERRUPT, OUTPUT);
-  digitalWrite(LED_ON_INTERRUPT, HIGH);
+  /* Configure LED_BUILTIN. */
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
 
+  /* Configure the red RGB LED. */
   pinMode(LEDR, OUTPUT);
   digitalWrite(LEDR, LOW);
   delay(200);
   digitalWrite(LEDR, HIGH);
 
+  /* Initialize the RTC. */
   RTC.begin();
-  RTCTime mytime(1, Month::JANUARY, 2000, 12, 10, 00, DayOfWeek::TUESDAY, SaveLight::SAVING_TIME_ACTIVE);
+  RTCTime initial_time(1, Month::JANUARY, 2000, 12, 10, 00, DayOfWeek::TUESDAY, SaveLight::SAVING_TIME_ACTIVE);
 
-  if (!RTC.isRunning()) {
-    RTC.setTime(mytime);
-  }
+  if (!RTC.isRunning())
+    RTC.setTime(initial_time);
 
-  RTCTime alarmtime;
-  alarmtime.setSecond(35);
+  RTCTime alarm_time;
+  alarm_time.setSecond(35);
 
-  AlarmMatch am;
-  am.addMatchSecond();
+  AlarmMatch alarm_match;
+  alarm_match.addMatchSecond();
 
-  if (!RTC.setPeriodicCallback(periodic_cbk, Period::ONCE_EVERY_2_SEC)) {
+  if (!RTC.setPeriodicCallback(periodic_cbk, Period::ONCE_EVERY_2_SEC))
     Serial.println("ERROR: periodic callback not set");
-  }
 
-  if (!RTC.setAlarmCallback(alarm_cbk, alarmtime, am)) {
+  if (!RTC.setAlarmCallback(alarm_cbk, alarm_time, alarm_match))
     Serial.println("ERROR: alarm callback not set");
-  }
-
 }
 
-void loop() {
-  static bool status = false;
-
+void loop()
+{
+  /* Enter low power mode. Note: The JLink looses connection here. */
   R_LPM_LowPowerModeEnter(&p_api_ctrl);
 
-  RTCTime currenttime;
-  if (status) {
-
-    if (RTC.isRunning()) {
-      Serial.println("RTC is running");
-    }
-    else {
-      Serial.println("RTC is not running");
-    }
-
+  if (RTC.isRunning())
+  {
     /* GET CURRENT TIME FROM RTC */
-    RTC.getTime(currenttime);
+    RTCTime current_time;
+    RTC.getTime(current_time);
 
     /* PRINT CURRENT TIME on Serial */
     Serial.print("Current time: ");
     /* DATE */
-    Serial.print(currenttime.getDayOfMonth());
+    Serial.print(current_time.getDayOfMonth());
     Serial.print("/");
-    Serial.print(Month2int(currenttime.getMonth()));
+    Serial.print(Month2int(current_time.getMonth()));
     Serial.print("/");
-    Serial.print(currenttime.getYear());
+    Serial.print(current_time.getYear());
     Serial.print(" - ");
-    Serial.print(currenttime.getUnixTime());
+    Serial.print(current_time.getUnixTime());
     Serial.print(" - ");
 
     struct timeval tv;
@@ -128,19 +100,13 @@ void loop() {
     Serial.print(tv.tv_sec);
     Serial.print(" - ");
 
-    /* ORE:MINUTI:SECONDI */
-    Serial.print(currenttime.getHour());
+    /* HOUR:MINUTES:SECONDS */
+    Serial.print(current_time.getHour());
     Serial.print(":");
-    Serial.print(currenttime.getMinutes());
+    Serial.print(current_time.getMinutes());
     Serial.print(":");
-    Serial.println(currenttime.getSeconds());
+    Serial.println(current_time.getSeconds());
 
-    //digitalWrite(LED_BUILTIN, HIGH);
+    delay(1000);
   }
-  else {
-    //digitalWrite(LED_BUILTIN, LOW);
-  }
-
-  status = !status;
-  delay(1000);
 }
