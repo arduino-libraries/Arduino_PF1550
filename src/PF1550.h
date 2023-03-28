@@ -24,7 +24,9 @@
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
-#include "Arduino.h"
+
+#include <Arduino.h>
+
 #include "PF1550/PF1550_IO.h"
 #include "PF1550/PF1550_Types.h"
 #include "PF1550/PF1550_Control.h"
@@ -34,7 +36,7 @@
    EXTERN DECLARATION
  ******************************************************************************/
 
-class PF1550; /* Forward declaration of class PF1550 */
+class PF1550;
 extern PF1550 PMIC;
 
 /******************************************************************************
@@ -51,8 +53,8 @@ public:
 
   void debug(Stream& stream);
 
-  void setPMICbit(Register const reg_addr, uint8_t posBit);
-  void writePMICreg(Register const reg_addr, uint8_t val);
+  void setPMICbit(Register const reg_addr, uint8_t const posBit);
+  void writePMICreg(Register const reg_addr, uint8_t const val);
   uint8_t readPMICreg(Register const reg_addr);
 
   void configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
@@ -77,12 +79,10 @@ public:
   /* Actual PMIC event ISR handler with access to member variables */
   inline void onPMICEvent() { _control.onPMICEvent(); }
 
+
 private:
-
   PF1550_Control _control;
-
   Stream* _debug;
-
 };
 
 #endif /* ARDUINO_PF1550_H_ */

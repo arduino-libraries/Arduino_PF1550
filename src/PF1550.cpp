@@ -56,12 +56,12 @@ void PF1550::debug(Stream& stream)
   _control.debug(stream);
 }
 
-void PF1550::setPMICbit(Register const reg_addr, uint8_t posBit)
+void PF1550::setPMICbit(Register const reg_addr, uint8_t const posBit)
 {
   _control.setBit(reg_addr, posBit);
 }
 
-void PF1550::writePMICreg(Register const reg_addr, uint8_t val)
+void PF1550::writePMICreg(Register const reg_addr, uint8_t const val)
 {
   if (_debug) {
     _debug->print("PF1550::writePMICreg at address=");
@@ -146,9 +146,9 @@ void PF1550::configSw2(Sw2Voltage      const sw2_volt,
 }
 
 void PF1550::configCharger(IFastCharge        const i_fast_charge,
-                                        VFastCharge        const v_fast_charge,
-                                        IEndOfCharge       const i_end_of_charge,
-                                        IInputCurrentLimit const i_input_current_limit)
+                           VFastCharge        const v_fast_charge,
+                           IEndOfCharge       const i_end_of_charge,
+                           IInputCurrentLimit const i_input_current_limit)
 {
   _control.setFastChargeCurrent (i_fast_charge);
   _control.setFastChargeVoltage (v_fast_charge);
