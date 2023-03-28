@@ -91,7 +91,7 @@ void PF1550_Io_C33::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t dat
     _debug->println(restart);
     if (!restart)
     {
-      _debug->print("PF1550_Io_EnvieH747::writeRegister at address=");
+      _debug->print("PF1550_Io_C33::writeRegister at address=");
       _debug->print(data[0], HEX);
       _debug->print(" data=");
       _debug->println(data[1], HEX);
@@ -100,7 +100,7 @@ void PF1550_Io_C33::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t dat
     }
     else
     {
-      _debug->print("PF1550_Io_EnvieH747::Read from register at address=");
+      _debug->print("PF1550_Io_C33::Read from register at address=");
       _debug->println(data[0], HEX);
     }
   }
