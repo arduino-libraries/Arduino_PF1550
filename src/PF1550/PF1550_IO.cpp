@@ -50,71 +50,21 @@ int PF1550_IO::begin()
 
 void PF1550_IO::readRegister(Register const reg_addr, uint8_t * data)
 {
-  uint8_t i2c_data[2];
+  _wire->beginTransmission(_i2c_addr);
+  _wire->write(static_cast<uint8_t>(reg_addr));
+  _wire->endTransmission(false); /* No Stop. */
 
-  i2c_data[0] = (uint8_t)reg_addr;
-
-  writeRegister(_i2c_addr, i2c_data, 1, 1);
-
-  uint8_t retVal = _wire->requestFrom(_i2c_addr, 1, true);
-
-  if (_debug) {
-    _debug->print("requestFrom: ");
-    _debug->println(retVal);
-  }
-
-  int i = 0;
-  while (_wire->available() && i < 1) {
-    data[0] = _wire->read();
-    i++;
-  }
-
-  if (_debug) {
-    _debug->println("Read:");
-    for (i = 0; i < 1; i++) {
-      _debug->println(data[i], HEX);
-    }
-  }
+  _wire->requestFrom(_i2c_addr, 1, true);
+  while (_wire->available() < 1) { }
+  *data = _wire->read();
 }
 
-void PF1550_IO::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart)
+void PF1550_IO::writeRegister(Register const reg_addr, uint8_t const data)
 {
-  if (_debug)
-  {
-    _debug->print("Restart: ");
-    _debug->println(restart);
-    if (!restart)
-    {
-      _debug->print("PF1550_IO_C33::writeRegister at address=");
-      _debug->print(data[0], HEX);
-      _debug->print(" data=");
-      _debug->println(data[1], HEX);
-      _debug->print("i2c slave address: ");
-      _debug->println(slave_addr);
-    }
-    else
-    {
-      _debug->print("PF1550_IO_C33::Read from register at address=");
-      _debug->println(data[0], HEX);
-    }
-  }
-
-  _wire->beginTransmission(slave_addr);
-  _wire->write(data, data_len);
-  uint8_t retVal = _wire->endTransmission(restart == 0 ? true : false);
-
-  if (_debug) {
-    _debug->print("End transmission: ");
-    _debug->println(retVal);
-  }
-  /*
-    if (_debug) {
-    _debug->println("Write:");
-    for (int i = 0; i < data_len; i++) {
-      _debug->println(data[i], HEX);
-    }
-    }
-  */
+  _wire->beginTransmission(_i2c_addr);
+  _wire->write(static_cast<uint8_t>(reg_addr));
+  _wire->write(data);
+  _wire->endTransmission(true);
 }
 
 void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
@@ -124,10 +74,7 @@ void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
   readRegister(reg, &reg_val);
   reg_val |= (1<<bit_pos);
 
-  uint8_t i2c_data[2];
-  i2c_data[0] = (uint8_t)reg;
-  i2c_data[1] = reg_val;
-  writeRegister(_i2c_addr, i2c_data, 2, 0);
+  writeRegister(reg, reg_val);
 }
 
 void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
@@ -137,8 +84,5 @@ void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
   readRegister(reg, &reg_val);
   reg_val &= ~(1<<bit_pos);
 
-  uint8_t i2c_data[2];
-  i2c_data[0] = (uint8_t)reg;
-  i2c_data[1] = reg_val;
-  writeRegister(_i2c_addr, i2c_data, 2, 0);
+  writeRegister(reg, reg_val);
 }

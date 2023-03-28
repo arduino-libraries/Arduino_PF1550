@@ -48,9 +48,9 @@ public:
   int begin();
   void debug(Stream& stream);
 
-  void setBit(Register const reg, uint8_t const bit_pos);
-  void writeReg(Register const reg_addr, uint8_t val);
-  void readReg(Register const reg_addr, uint8_t *data);
+  void setBit  (Register const reg, uint8_t const bit_pos);
+  void writeReg(Register const reg_addr, uint8_t const val);
+  void readReg (Register const reg_addr, uint8_t * data);
 
   /* LDO1 Configuration *******************************************************/
   void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);

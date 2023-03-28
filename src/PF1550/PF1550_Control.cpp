@@ -56,21 +56,16 @@ void PF1550_Control::setBit(Register const reg, uint8_t const bit_pos)
   _io.setBit(reg, bit_pos);
 }
 
-void PF1550_Control::writeReg(Register const reg_addr, uint8_t val)
+void PF1550_Control::writeReg(Register const reg_addr, uint8_t const val)
 {
-  uint8_t i2c_data[2];
-  
-  i2c_data[0] = (uint8_t)reg_addr;
-  i2c_data[1] = val;
-
   if (_debug) {
-    _debug->print("PF1550_Control::writeReg at address=");
-    _debug->print(i2c_data[0], HEX);
+    _debug->print("PF1550_Control::writeReg at address = ");
+    _debug->print(static_cast<uint8_t>(reg_addr), HEX);
     _debug->print(" data=");
-    _debug->println(i2c_data[1], HEX);
+    _debug->println(val, HEX);
   }
 
-  _io.writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
+  _io.writeRegister(reg_addr, val);
 }
 
 void PF1550_Control::readReg(Register const reg_addr, uint8_t *data)

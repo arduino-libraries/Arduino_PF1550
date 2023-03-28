@@ -32,6 +32,9 @@ void setup()
   PMIC.configLDO3(Ldo3Voltage::V_1_20, false, false, false);
   PMIC.configSw2(Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2Voltage::V_3_30, Sw2CurrentLimit::I_1_5_A, false, false, false);
 
+  Serial.print("Device ID = ");
+  Serial.println(PMIC.getDeviceId(), HEX);
+
   p_cfg.low_power_mode = LPM_MODE_DEEP; //  LPM_MODE_SLEEP  LPM_MODE_STANDBY    LPM_MODE_STANDBY_SNOOZE    LPM_MODE_DEEP
   p_cfg.standby_wake_sources = LPM_STANDBY_WAKE_SOURCE_IRQ0 | LPM_STANDBY_WAKE_SOURCE_RTCALM;
   p_cfg.dtc_state_in_snooze = LPM_SNOOZE_DTC_DISABLE; // LPM_SNOOZE_DTC_ENABLE LPM_SNOOZE_DTC_DISABLE

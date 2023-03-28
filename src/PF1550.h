@@ -73,7 +73,9 @@ public:
                      VFastCharge        const v_fast_charge,
                      IEndOfCharge       const i_end_of_charge,
                      IInputCurrentLimit const i_input_current_limit);
-  
+
+  uint8_t getDeviceId() { return _control.getDeviceId(); }
+
   /* Static function registered to be executed from within external interrupt ISR */
   static void ISR_onPMICEvent() { PMIC.onPMICEvent(); }
   /* Actual PMIC event ISR handler with access to member variables */
