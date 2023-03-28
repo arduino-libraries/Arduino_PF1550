@@ -23,8 +23,9 @@
    INCLUDE
  ******************************************************************************/
 
-#include "Arduino.h"
 #include "interface/PF1550_Io.h"
+
+#include "PF1550_Defines.h"
 
 /******************************************************************************
    CLASS DECLARATION
@@ -33,20 +34,19 @@
 class PF1550_Io_C33 : public interface::PF1550_Io
 {
 public:
-  PF1550_Io_C33(uint8_t const i2c_addr);
+  PF1550_Io_C33(arduino::HardwareI2C * wire, uint8_t const i2c_addr) : interface::PF1550_Io(wire, i2c_addr) { }
   virtual ~PF1550_Io_C33() { }
 
-  virtual int  begin        () override;
-  virtual void readRegister (Register const reg_addr, uint8_t * data) override;
-  virtual void writeRegister(uint8_t slave_addr, uint8_t * data, uint8_t data_len, uint8_t restart) override;
-  virtual void setSTANDBY   () override { }
-  virtual void clrSTANDBY   () override { }
 
+protected:
+  virtual int derived_begin() override
+  {
+    /* Enable LED. */
+    setBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp);
+    /* Allow LED control by software. */
+    setBit(Register::CHARGER_LED_CNFG, REG_LED_CNFG_LEDOVRD_bp);
+  }
 
-private:
-
-  uint8_t const _i2c_addr;
-  Stream * _debug;
 };
 
 #endif /* PF1550_IO_C33_H_ */

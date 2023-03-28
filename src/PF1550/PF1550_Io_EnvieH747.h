@@ -23,7 +23,6 @@
    INCLUDE
  ******************************************************************************/
 
-#include "Arduino.h"
 #include "interface/PF1550_Io.h"
 
 /******************************************************************************
@@ -32,23 +31,13 @@
 
 class PF1550_Io_EnvieH747 : public interface::PF1550_Io
 {
-
 public:
-
-           PF1550_Io_EnvieH747(uint8_t const i2c_addr);
+  PF1550_Io_EnvieH747(arduino::HardwareI2C * wire, uint8_t const i2c_addr) : interface::PF1550_Io(wire, i2c_addr) { }
   virtual ~PF1550_Io_EnvieH747() { }
 
-  virtual int     begin        ()                                                                     override;
-  virtual void    readRegister (Register const reg_addr, uint8_t *data)                               override;
-  virtual void    writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart) override;
-  virtual void    setSTANDBY   ()                                                                     override;
-  virtual void    clrSTANDBY   ()                                                                     override;
 
-private:
-
-  uint8_t const _i2c_addr;
-  Stream* _debug;
-
+protected:
+  virtual int derived_begin() override { }
 };
 
 #endif /* PF1550_IO_ENVIEH747_H_ */
