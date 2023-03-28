@@ -19,13 +19,15 @@
 #ifndef ARDUINO_PF1550_H_
 #define ARDUINO_PF1550_H_
 
-#define PF1550_I2C_ADDR (interface::PF1550_I2C_DEFAULT_ADDR)
+#define PF1550_I2C_ADDR (PF1550_I2C_DEFAULT_ADDR)
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
-#include "Arduino.h"
-#include "PF1550/interface/PF1550_Io.h"
+
+#include <Arduino.h>
+
+#include "PF1550/PF1550_IO.h"
 #include "PF1550/PF1550_Types.h"
 #include "PF1550/PF1550_Control.h"
 #include "PF1550/PF1550_Register.h"
@@ -34,7 +36,7 @@
    EXTERN DECLARATION
  ******************************************************************************/
 
-class PF1550; /* Forward declaration of class PF1550 */
+class PF1550;
 extern PF1550 PMIC;
 
 /******************************************************************************
@@ -45,14 +47,14 @@ class PF1550
 {
 public:
 
-  PF1550(interface::PF1550_Io & io);
+  PF1550(PF1550_IO & io);
 
   int begin();
 
   void debug(Stream& stream);
 
-  void setPMICbit(Register const reg_addr, uint8_t posBit);
-  void writePMICreg(Register const reg_addr, uint8_t val);
+  void setPMICbit(Register const reg_addr, uint8_t const posBit);
+  void writePMICreg(Register const reg_addr, uint8_t const val);
   uint8_t readPMICreg(Register const reg_addr);
 
   void configLDO1(Ldo1Voltage const ldo_1_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
@@ -71,18 +73,18 @@ public:
                      VFastCharge        const v_fast_charge,
                      IEndOfCharge       const i_end_of_charge,
                      IInputCurrentLimit const i_input_current_limit);
-  
+
+  uint8_t getDeviceId() { return _control.getDeviceId(); }
+
   /* Static function registered to be executed from within external interrupt ISR */
   static void ISR_onPMICEvent() { PMIC.onPMICEvent(); }
   /* Actual PMIC event ISR handler with access to member variables */
   inline void onPMICEvent() { _control.onPMICEvent(); }
 
+
 private:
-
   PF1550_Control _control;
-
   Stream* _debug;
-
 };
 
 #endif /* ARDUINO_PF1550_H_ */

@@ -21,49 +21,68 @@
  ******************************************************************************/
 
 #include "PF1550.h"
-#include "PF1550_Io.h"
+#include "PF1550_IO.h"
 
 #include <assert.h>
 
 /******************************************************************************
-   NAMESPACE
+   CTOR/DTOR
  ******************************************************************************/
 
-namespace interface
+PF1550_IO::PF1550_IO(arduino::HardwareI2C * wire, uint8_t const i2c_addr)
+: _wire{wire}
+, _i2c_addr{i2c_addr}
+, _debug{nullptr}
 {
+
+}
 
 /******************************************************************************
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-void PF1550_Io::setBit(Register const reg, uint8_t const bit_pos)
+int PF1550_IO::begin()
+{
+  _wire->begin();
+  _wire->setClock(100000);
+  return derived_begin();
+}
+
+void PF1550_IO::readRegister(Register const reg_addr, uint8_t * data)
+{
+  _wire->beginTransmission(_i2c_addr);
+  _wire->write(static_cast<uint8_t>(reg_addr));
+  _wire->endTransmission(false); /* No Stop. */
+
+  _wire->requestFrom(_i2c_addr, 1, true);
+  while (_wire->available() < 1) { }
+  *data = _wire->read();
+}
+
+void PF1550_IO::writeRegister(Register const reg_addr, uint8_t const data)
+{
+  _wire->beginTransmission(_i2c_addr);
+  _wire->write(static_cast<uint8_t>(reg_addr));
+  _wire->write(data);
+  _wire->endTransmission(true);
+}
+
+void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
   uint8_t reg_val;
   readRegister(reg, &reg_val);
   reg_val |= (1<<bit_pos);
 
-  uint8_t i2c_data[2];
-  i2c_data[0] = (uint8_t)reg;
-  i2c_data[1] = reg_val;
-  writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
+  writeRegister(reg, reg_val);
 }
 
-void PF1550_Io::clrBit(Register const reg, uint8_t const bit_pos)
+void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
   uint8_t reg_val;
   readRegister(reg, &reg_val);
   reg_val &= ~(1<<bit_pos);
 
-  uint8_t i2c_data[2];
-  i2c_data[0] = (uint8_t)reg;
-  i2c_data[1] = reg_val;
-  writeRegister(PF1550_I2C_ADDR, i2c_data, 2, 0);
+  writeRegister(reg, reg_val);
 }
-
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-} /* interface */

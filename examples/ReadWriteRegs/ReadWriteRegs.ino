@@ -1,40 +1,40 @@
-#include "Arduino_PMIC.h"
-#include "PF1550/PF1550_Register.h"
+/*
+ * Read and write some registers from the PF1550 PMIC.
+ */
 
-#define Serial Serial1
+#include <Arduino_PMIC.h>
 
-uint8_t regVal;
+//#define Serial Serial1
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   while(!Serial);
 
   PMIC.begin();
-
   PMIC.debug(Serial);
-
 }
 
 
-void loop() {
+void loop()
+{
   PMIC.writePMICreg(Register::CHARGER_CHG_EOC_CNFG, 0x41);
-  regVal = PMIC.readPMICreg(Register::CHARGER_CHG_EOC_CNFG);
+  uint8_t reg_val = PMIC.readPMICreg(Register::CHARGER_CHG_EOC_CNFG);
 
   Serial.print("CHARGER_CHG_SNS register value: ");
-  Serial.println(regVal,HEX);
+  Serial.println(reg_val,HEX);
   
-  regVal = PMIC.readPMICreg(Register::CHARGER_VBUS_SNS);
+  reg_val = PMIC.readPMICreg(Register::CHARGER_VBUS_SNS);
 
   Serial.print("CHARGER_VBUS_SNS register value: ");
-  Serial.println(regVal,HEX);
+  Serial.println(reg_val,HEX);
   
-  regVal = PMIC.readPMICreg(Register::CHARGER_CHG_INT_OK);
+  reg_val = PMIC.readPMICreg(Register::CHARGER_CHG_INT_OK);
 
   Serial.print("CHARGER_CHG_INT_OK register value: ");
-  Serial.println(regVal,HEX);
+  Serial.println(reg_val,HEX);
   Serial.println();
   Serial.println();
 
   delay(5000);
-  
 }

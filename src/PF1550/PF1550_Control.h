@@ -24,7 +24,7 @@
  ******************************************************************************/
 
 #include "PF1550_Types.h"
-#include "interface/PF1550_Io.h"
+#include "PF1550_IO.h"
 #include "Arduino.h"
 
 /******************************************************************************
@@ -42,15 +42,15 @@ class PF1550_Control
 
 public:
 
-  PF1550_Control(interface::PF1550_Io & io);
+  PF1550_Control(PF1550_IO & io);
 
 
   int begin();
   void debug(Stream& stream);
 
-  void setBit(Register const reg, uint8_t const bit_pos);
-  void writeReg(Register const reg_addr, uint8_t val);
-  void readReg(Register const reg_addr, uint8_t *data);
+  void setBit  (Register const reg, uint8_t const bit_pos);
+  void writeReg(Register const reg_addr, uint8_t const val);
+  void readReg (Register const reg_addr, uint8_t * data);
 
   /* LDO1 Configuration *******************************************************/
   void setLDO1Voltage   (Ldo1Voltage const ldo1_volt);
@@ -87,7 +87,7 @@ public:
 
 private:
 
-  interface::PF1550_Io & _io;
+  PF1550_IO & _io;
 
   void onChargerEvent();
   void onSwitch1Event();

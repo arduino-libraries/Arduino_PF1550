@@ -23,15 +23,11 @@
    INCLUDE
  ******************************************************************************/
 
-#include "Arduino.h"
-#include "../PF1550_Register.h"
+#include <Arduino.h>
 
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
+#include "api/HardwareI2C.h"
 
-namespace interface
-{
+#include "PF1550_Register.h"
 
 /******************************************************************************
    CONSTANTS
@@ -43,35 +39,33 @@ static uint8_t const PF1550_I2C_DEFAULT_ADDR = 0x08;
    CLASS DECLARATION
  ******************************************************************************/
 
-class PF1550_Io
+class PF1550_IO
 {
-
 public:
 
-  virtual ~PF1550_Io() { }
+  PF1550_IO(arduino::HardwareI2C * wire, uint8_t const i2c_addr);
+  virtual ~PF1550_IO() { }
 
 
   void debug (Stream& stream) { _debug = &stream; }
 
 
-  virtual int     begin        ()                                                                     = 0;
-  virtual void    readRegister (Register const reg_addr, uint8_t *data)                               = 0;
-  virtual void    writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart) = 0;
-  virtual void    setSTANDBY   ()                                                                     = 0;
-  virtual void    clrSTANDBY   ()                                                                     = 0;
+  int begin();
 
-          void    setBit       (Register const reg, uint8_t const bit_pos);
-          void    clrBit       (Register const reg, uint8_t const bit_pos);
+  void readRegister (Register const reg_addr, uint8_t * data);
+  void writeRegister(Register const reg_addr, uint8_t const data);
+
+  void setBit(Register const reg, uint8_t const bit_pos);
+  void clrBit(Register const reg, uint8_t const bit_pos);
 
 
 protected:
+  virtual int derived_begin() = 0;
+
+private:
+  arduino::HardwareI2C * _wire;
+  uint8_t const _i2c_addr;
   Stream * _debug;
 };
-
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-} /* interface */
 
 #endif /* ARDUINO_PF1550_INTERFACE_PF1550_IO_H_ */

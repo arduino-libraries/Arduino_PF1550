@@ -22,14 +22,16 @@
 
 #include "PF1550.h"
 
-#include "PF1550/PF1550_Io_C33.h"
-#include "PF1550/PF1550_Io_EnvieH747.h"
+#include <Wire.h>
+
+#include "PF1550/PF1550_IO_C33.h"
+#include "PF1550/PF1550_IO_Portenta_H7.h"
 
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550::PF1550(interface::PF1550_Io & io)
+PF1550::PF1550(PF1550_IO & io)
 : _control(io),
   _debug(NULL)
 {
@@ -54,12 +56,12 @@ void PF1550::debug(Stream& stream)
   _control.debug(stream);
 }
 
-void PF1550::setPMICbit(Register const reg_addr, uint8_t posBit)
+void PF1550::setPMICbit(Register const reg_addr, uint8_t const posBit)
 {
   _control.setBit(reg_addr, posBit);
 }
 
-void PF1550::writePMICreg(Register const reg_addr, uint8_t val)
+void PF1550::writePMICreg(Register const reg_addr, uint8_t const val)
 {
   if (_debug) {
     _debug->print("PF1550::writePMICreg at address=");
@@ -144,9 +146,9 @@ void PF1550::configSw2(Sw2Voltage      const sw2_volt,
 }
 
 void PF1550::configCharger(IFastCharge        const i_fast_charge,
-                                        VFastCharge        const v_fast_charge,
-                                        IEndOfCharge       const i_end_of_charge,
-                                        IInputCurrentLimit const i_input_current_limit)
+                           VFastCharge        const v_fast_charge,
+                           IEndOfCharge       const i_end_of_charge,
+                           IInputCurrentLimit const i_input_current_limit)
 {
   _control.setFastChargeCurrent (i_fast_charge);
   _control.setFastChargeVoltage (v_fast_charge);
@@ -159,9 +161,9 @@ void PF1550::configCharger(IFastCharge        const i_fast_charge,
  ******************************************************************************/
 
 #ifdef ARDUINO_PORTENTA_H33
-static PF1550_Io_C33 io(interface::PF1550_I2C_DEFAULT_ADDR);
+static PF1550_IO_C33         io(&Wire3, PF1550_I2C_DEFAULT_ADDR);
 #else
-static PF1550_Io_EnvieH747 io(interface::PF1550_I2C_DEFAULT_ADDR);
+static PF1550_IO_Portenta_H7 io(&Wire1, PF1550_I2C_DEFAULT_ADDR);
 #endif
 
 PF1550 PMIC(io);
