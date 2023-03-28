@@ -27,6 +27,8 @@
 #include "Wire.h"
 #include "Arduino.h"
 
+#include "PF1550_Defines.h"
+
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
@@ -45,11 +47,11 @@ int PF1550_Io_C33::begin()
 {
   Wire3.begin();
   Wire3.setClock(100000);
-  uint8_t data[2] = { 0x9C, (1 << 7) };
-  writeRegister(_i2c_addr, data, 2, false);
-  data[0] = 0x9E;
-  data[1] = (1 << 5);
-  writeRegister(_i2c_addr, data, 2, false);
+
+  /* Enable LED. */
+  setBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp);
+  /* Allow LED control by software. */
+  setBit(Register::CHARGER_LED_CNFG, REG_LED_CNFG_LEDOVRD_bp);
 
   return 1;
 }

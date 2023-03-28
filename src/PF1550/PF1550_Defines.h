@@ -68,4 +68,10 @@
 /* VBUS_INLIM_CNFG ************************************************************/
 #define REG_VBUS_INLIM_CNFG_VBUS_LIN_INLIM_mask (0xF8)
 
+/* LED_PWM ********************************************************************/
+#define REG_LED_PWM_LED_EN_bp                   (7)
+
+/* LED_CNFG *******************************************************************/
+#define REG_LED_CNFG_LEDOVRD_bp                 (5)
+
 #endif /* PF1550_DEFINES_H_ */
