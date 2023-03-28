@@ -19,7 +19,7 @@
 #ifndef ARDUINO_PF1550_H_
 #define ARDUINO_PF1550_H_
 
-#define  PF1550_I2C_ADDR         0x08
+#define PF1550_I2C_ADDR (interface::PF1550_I2C_DEFAULT_ADDR)
 
 /******************************************************************************
    INCLUDE

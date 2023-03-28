@@ -20,16 +20,20 @@
    INCLUDE
  ******************************************************************************/
 
-#include "PF1550_Io_EnvieH747.h"
-#include "PF1550.h"
-#include <Arduino.h>
-#include <Wire.h>
+#include "PF1550_Io_C33.h"
+
+#ifdef ARDUINO_PORTENTA_H33
+
+#include "Wire.h"
+#include "Arduino.h"
+
+#include "PF1550_Defines.h"
 
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550_Io_EnvieH747::PF1550_Io_EnvieH747(uint8_t const i2c_addr)
+PF1550_Io_C33::PF1550_Io_C33(uint8_t const i2c_addr)
 : _i2c_addr(i2c_addr)
 {
 
@@ -39,22 +43,28 @@ PF1550_Io_EnvieH747::PF1550_Io_EnvieH747(uint8_t const i2c_addr)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550_Io_EnvieH747::begin()
+int PF1550_Io_C33::begin()
 {
-  Wire1.begin();
-  Wire1.setClock(100000);
+  Wire3.begin();
+  Wire3.setClock(100000);
+
+  /* Enable LED. */
+  setBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp);
+  /* Allow LED control by software. */
+  setBit(Register::CHARGER_LED_CNFG, REG_LED_CNFG_LEDOVRD_bp);
+
   return 1;
 }
 
-void PF1550_Io_EnvieH747::readRegister(Register const reg_addr, uint8_t *data)
+void PF1550_Io_C33::readRegister(Register const reg_addr, uint8_t * data)
 {
   uint8_t i2c_data[2];
 
   i2c_data[0] = (uint8_t)reg_addr;
 
-  writeRegister(PF1550_I2C_ADDR, i2c_data, 1, 1);
+  writeRegister(_i2c_addr, i2c_data, 1, 1);
 
-  uint8_t retVal = Wire1.requestFrom(PF1550_I2C_ADDR, 1, true);
+  uint8_t retVal = Wire3.requestFrom(_i2c_addr, 1, true);
 
   if (_debug) {
     _debug->print("requestFrom: ");
@@ -62,8 +72,8 @@ void PF1550_Io_EnvieH747::readRegister(Register const reg_addr, uint8_t *data)
   }
 
   int i = 0;
-  while (Wire1.available() && i < 1) {
-    data[0] = Wire1.read();
+  while (Wire3.available() && i < 1) {
+    data[0] = Wire3.read();
     i++;
   }
 
@@ -75,48 +85,44 @@ void PF1550_Io_EnvieH747::readRegister(Register const reg_addr, uint8_t *data)
   }
 }
 
-void PF1550_Io_EnvieH747::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart)
+void PF1550_Io_C33::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart)
 {
-  if (_debug) {
+  if (_debug)
+  {
     _debug->print("Restart: ");
     _debug->println(restart);
-    if (!restart) {
-      _debug->print("PF1550_Io_EnvieH747::writeRegister at address=");
+    if (!restart)
+    {
+      _debug->print("PF1550_Io_C33::writeRegister at address=");
       _debug->print(data[0], HEX);
       _debug->print(" data=");
       _debug->println(data[1], HEX);
       _debug->print("i2c slave address: ");
       _debug->println(slave_addr);
-    } else {
-      _debug->print("PF1550_Io_EnvieH747::Read from register at address=");
+    }
+    else
+    {
+      _debug->print("PF1550_Io_C33::Read from register at address=");
       _debug->println(data[0], HEX);
     }
   }
 
-  Wire1.beginTransmission(slave_addr);
-  Wire1.write(data, data_len);
-  uint8_t retVal = Wire1.endTransmission(restart == 0 ? true : false);
+  Wire3.beginTransmission(slave_addr);
+  Wire3.write(data, data_len);
+  uint8_t retVal = Wire3.endTransmission(restart == 0 ? true : false);
 
   if (_debug) {
     _debug->print("End transmission: ");
     _debug->println(retVal);
   }
   /*
-  if (_debug) {
+    if (_debug) {
     _debug->println("Write:");
     for (int i = 0; i < data_len; i++) {
       _debug->println(data[i], HEX);
     }
-  }
+    }
   */
 }
 
-void PF1550_Io_EnvieH747::setSTANDBY()
-{
-  /* TODO: Use STM32H7 HAL to set PJ0 */
-}
-
-void PF1550_Io_EnvieH747::clrSTANDBY()
-{
-  /* TODO: Use STM32H7 HAL to clr PJ0 */
-}
+#endif /* ARDUINO_PORTENTA_H33 */
