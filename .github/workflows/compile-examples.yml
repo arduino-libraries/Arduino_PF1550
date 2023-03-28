@@ -51,6 +51,12 @@ jobs:
             platforms: |
               - name: arduino:mbed_portenta
             sketch-paths:
+          - fqbn: arduino:renesas:portenta_h33
+            platforms: |
+              - name: arduino:renesas
+                source-url: https://downloads.arduino.cc/packages/package_renesas_index.json
+            sketch-paths: |
+              - examples/C33-Low-Power
 
     steps:
       - name: Checkout repository
