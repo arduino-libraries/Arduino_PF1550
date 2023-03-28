@@ -1,4 +1,8 @@
-#include "Arduino_PMIC.h"
+/*
+ * Demonstrate basic library usage.
+ */
+
+#include <Arduino_PMIC.h>
 
 void setup() {
   PMIC.begin();

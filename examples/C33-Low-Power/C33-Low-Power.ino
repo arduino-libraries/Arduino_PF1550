@@ -1,3 +1,7 @@
+/*
+ * Test low power capability of Portenta C33.
+ */
+
 #include <Arduino_PMIC.h>
 
 #include <Wire.h>
