@@ -30,7 +30,7 @@
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550_Control::PF1550_Control(interface::PF1550_Io & io)
+PF1550_Control::PF1550_Control(PF1550_IO & io)
 : _io(io)
 {
 

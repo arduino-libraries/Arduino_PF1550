@@ -21,22 +21,15 @@
  ******************************************************************************/
 
 #include "PF1550.h"
-#include "PF1550_Io.h"
+#include "PF1550_IO.h"
 
 #include <assert.h>
-
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-namespace interface
-{
 
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550_Io::PF1550_Io(arduino::HardwareI2C * wire, uint8_t const i2c_addr)
+PF1550_IO::PF1550_IO(arduino::HardwareI2C * wire, uint8_t const i2c_addr)
 : _wire{wire}
 , _i2c_addr{i2c_addr}
 , _debug{nullptr}
@@ -48,14 +41,14 @@ PF1550_Io::PF1550_Io(arduino::HardwareI2C * wire, uint8_t const i2c_addr)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550_Io::begin()
+int PF1550_IO::begin()
 {
   _wire->begin();
   _wire->setClock(100000);
   return derived_begin();
 }
 
-void PF1550_Io::readRegister(Register const reg_addr, uint8_t * data)
+void PF1550_IO::readRegister(Register const reg_addr, uint8_t * data)
 {
   uint8_t i2c_data[2];
 
@@ -84,7 +77,7 @@ void PF1550_Io::readRegister(Register const reg_addr, uint8_t * data)
   }
 }
 
-void PF1550_Io::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart)
+void PF1550_IO::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_len, uint8_t restart)
 {
   if (_debug)
   {
@@ -92,7 +85,7 @@ void PF1550_Io::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_le
     _debug->println(restart);
     if (!restart)
     {
-      _debug->print("PF1550_Io_C33::writeRegister at address=");
+      _debug->print("PF1550_IO_C33::writeRegister at address=");
       _debug->print(data[0], HEX);
       _debug->print(" data=");
       _debug->println(data[1], HEX);
@@ -101,7 +94,7 @@ void PF1550_Io::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_le
     }
     else
     {
-      _debug->print("PF1550_Io_C33::Read from register at address=");
+      _debug->print("PF1550_IO_C33::Read from register at address=");
       _debug->println(data[0], HEX);
     }
   }
@@ -124,7 +117,7 @@ void PF1550_Io::writeRegister(uint8_t slave_addr, uint8_t *data, uint8_t data_le
   */
 }
 
-void PF1550_Io::setBit(Register const reg, uint8_t const bit_pos)
+void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
   uint8_t reg_val;
@@ -137,7 +130,7 @@ void PF1550_Io::setBit(Register const reg, uint8_t const bit_pos)
   writeRegister(_i2c_addr, i2c_data, 2, 0);
 }
 
-void PF1550_Io::clrBit(Register const reg, uint8_t const bit_pos)
+void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
   uint8_t reg_val;
@@ -149,9 +142,3 @@ void PF1550_Io::clrBit(Register const reg, uint8_t const bit_pos)
   i2c_data[1] = reg_val;
   writeRegister(_i2c_addr, i2c_data, 2, 0);
 }
-
-/******************************************************************************
-   NAMESPACE
- ******************************************************************************/
-
-} /* interface */

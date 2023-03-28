@@ -16,28 +16,56 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef PF1550_IO_ENVIEH747_H_
-#define PF1550_IO_ENVIEH747_H_
+#ifndef ARDUINO_PF1550_INTERFACE_PF1550_IO_H_
+#define ARDUINO_PF1550_INTERFACE_PF1550_IO_H_
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 
-#include "interface/PF1550_Io.h"
+#include <Arduino.h>
+
+#include "api/HardwareI2C.h"
+
+#include "PF1550_Register.h"
+
+/******************************************************************************
+   CONSTANTS
+ ******************************************************************************/
+
+static uint8_t const PF1550_I2C_DEFAULT_ADDR = 0x08;
 
 /******************************************************************************
    CLASS DECLARATION
  ******************************************************************************/
 
-class PF1550_Io_EnvieH747 : public interface::PF1550_Io
+class PF1550_IO
 {
 public:
-  PF1550_Io_EnvieH747(arduino::HardwareI2C * wire, uint8_t const i2c_addr) : interface::PF1550_Io(wire, i2c_addr) { }
-  virtual ~PF1550_Io_EnvieH747() { }
+
+  PF1550_IO(arduino::HardwareI2C * wire, uint8_t const i2c_addr);
+  virtual ~PF1550_IO() { }
+
+
+  void debug (Stream& stream) { _debug = &stream; }
+
+
+  int begin();
+
+  void readRegister (Register const reg_addr, uint8_t * data);
+  void writeRegister(uint8_t slave_addr, uint8_t * data, uint8_t data_len, uint8_t restart);
+
+  void setBit(Register const reg, uint8_t const bit_pos);
+  void clrBit(Register const reg, uint8_t const bit_pos);
 
 
 protected:
-  virtual int derived_begin() override { }
+  virtual int derived_begin() = 0;
+
+private:
+  arduino::HardwareI2C * _wire;
+  uint8_t const _i2c_addr;
+  Stream * _debug;
 };
 
-#endif /* PF1550_IO_ENVIEH747_H_ */
+#endif /* ARDUINO_PF1550_INTERFACE_PF1550_IO_H_ */

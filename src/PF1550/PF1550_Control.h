@@ -24,7 +24,7 @@
  ******************************************************************************/
 
 #include "PF1550_Types.h"
-#include "interface/PF1550_Io.h"
+#include "PF1550_IO.h"
 #include "Arduino.h"
 
 /******************************************************************************
@@ -42,7 +42,7 @@ class PF1550_Control
 
 public:
 
-  PF1550_Control(interface::PF1550_Io & io);
+  PF1550_Control(PF1550_IO & io);
 
 
   int begin();
@@ -87,7 +87,7 @@ public:
 
 private:
 
-  interface::PF1550_Io & _io;
+  PF1550_IO & _io;
 
   void onChargerEvent();
   void onSwitch1Event();

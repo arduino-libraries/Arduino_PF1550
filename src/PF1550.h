@@ -19,13 +19,13 @@
 #ifndef ARDUINO_PF1550_H_
 #define ARDUINO_PF1550_H_
 
-#define PF1550_I2C_ADDR (interface::PF1550_I2C_DEFAULT_ADDR)
+#define PF1550_I2C_ADDR (PF1550_I2C_DEFAULT_ADDR)
 
 /******************************************************************************
    INCLUDE
  ******************************************************************************/
 #include "Arduino.h"
-#include "PF1550/interface/PF1550_Io.h"
+#include "PF1550/PF1550_IO.h"
 #include "PF1550/PF1550_Types.h"
 #include "PF1550/PF1550_Control.h"
 #include "PF1550/PF1550_Register.h"
@@ -45,7 +45,7 @@ class PF1550
 {
 public:
 
-  PF1550(interface::PF1550_Io & io);
+  PF1550(PF1550_IO & io);
 
   int begin();
 

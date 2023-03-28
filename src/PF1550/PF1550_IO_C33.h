@@ -23,7 +23,7 @@
    INCLUDE
  ******************************************************************************/
 
-#include "interface/PF1550_Io.h"
+#include "PF1550_IO.h"
 
 #include "PF1550_Defines.h"
 
@@ -31,11 +31,11 @@
    CLASS DECLARATION
  ******************************************************************************/
 
-class PF1550_Io_C33 : public interface::PF1550_Io
+class PF1550_IO_C33 : public PF1550_IO
 {
 public:
-  PF1550_Io_C33(arduino::HardwareI2C * wire, uint8_t const i2c_addr) : interface::PF1550_Io(wire, i2c_addr) { }
-  virtual ~PF1550_Io_C33() { }
+  PF1550_IO_C33(arduino::HardwareI2C * wire, uint8_t const i2c_addr) : PF1550_IO(wire, i2c_addr) { }
+  virtual ~PF1550_IO_C33() { }
 
 
 protected:

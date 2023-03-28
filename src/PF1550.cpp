@@ -24,14 +24,14 @@
 
 #include <Wire.h>
 
-#include "PF1550/PF1550_Io_C33.h"
-#include "PF1550/PF1550_Io_EnvieH747.h"
+#include "PF1550/PF1550_IO_C33.h"
+#include "PF1550/PF1550_IO_Portenta_H7.h"
 
 /******************************************************************************
    CTOR/DTOR
  ******************************************************************************/
 
-PF1550::PF1550(interface::PF1550_Io & io)
+PF1550::PF1550(PF1550_IO & io)
 : _control(io),
   _debug(NULL)
 {
@@ -161,9 +161,9 @@ void PF1550::configCharger(IFastCharge        const i_fast_charge,
  ******************************************************************************/
 
 #ifdef ARDUINO_PORTENTA_H33
-static PF1550_Io_C33 io(&Wire3, interface::PF1550_I2C_DEFAULT_ADDR);
+static PF1550_IO_C33         io(&Wire3, PF1550_I2C_DEFAULT_ADDR);
 #else
-static PF1550_Io_EnvieH747 io(&Wire1, interface::PF1550_I2C_DEFAULT_ADDR);
+static PF1550_IO_Portenta_H7 io(&Wire1, PF1550_I2C_DEFAULT_ADDR);
 #endif
 
 PF1550 PMIC(io);
