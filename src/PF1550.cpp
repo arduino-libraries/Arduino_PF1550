@@ -26,6 +26,7 @@
 
 #include "PF1550/PF1550_IO_C33.h"
 #include "PF1550/PF1550_IO_Portenta_H7.h"
+#include "PF1550/PF1550_IO_Nicla_Vision.h"
 
 /******************************************************************************
    CTOR/DTOR
@@ -160,10 +161,14 @@ void PF1550::configCharger(IFastCharge        const i_fast_charge,
    EXTERN DEFINITION
  ******************************************************************************/
 
-#ifdef ARDUINO_PORTENTA_H33
-static PF1550_IO_C33         io(&Wire3, PF1550_I2C_DEFAULT_ADDR);
+#if defined(ARDUINO_PORTENTA_H33)
+static PF1550_IO_C33          io(&Wire3, PF1550_I2C_DEFAULT_ADDR);
+#elif defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4)
+static PF1550_IO_Portenta_H7  io(&Wire1, PF1550_I2C_DEFAULT_ADDR);
+#elif defined(ARDUINO_NICLA_VISION)
+static PF1550_IO_Nicla_Vision io(&Wire1, PF1550_I2C_DEFAULT_ADDR);
 #else
-static PF1550_IO_Portenta_H7 io(&Wire1, PF1550_I2C_DEFAULT_ADDR);
+# error "No IO class defined for this board."
 #endif
 
 PF1550 PMIC(io);
