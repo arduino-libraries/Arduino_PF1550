@@ -67,7 +67,11 @@ public:
                  Sw1CurrentLimit const sw1_current_limit,
                  bool            const enable,
                  bool            const enable_in_standby,
-                 bool            const enable_in_sleep) __attribute__ ((error("Erroneous usage of this API can cause board damage.")));
+                 bool            const enable_in_sleep)
+#if defined(ARDUINO_PORTENTA_H33) ||  defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) || defined(ARDUINO_NICLA_VISION)
+                 __attribute__ ((error("Erroneous usage of this API can cause board damage.")))
+#endif
+                 ;
 
   void configSw2(Sw2Voltage      const sw2_volt,
                  Sw2Voltage      const sw2_volt_standby,
