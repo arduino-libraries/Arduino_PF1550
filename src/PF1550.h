@@ -67,7 +67,7 @@ public:
                  Sw1CurrentLimit const sw1_current_limit,
                  bool            const enable,
                  bool            const enable_in_standby,
-                 bool            const enable_in_sleep);
+                 bool            const enable_in_sleep) __attribute__ ((error("Erroneus usage of this API can cause board damage.")));
 
   void configSw2(Sw2Voltage      const sw2_volt,
                  Sw2Voltage      const sw2_volt_standby,
