@@ -68,8 +68,10 @@ public:
                  bool            const enable,
                  bool            const enable_in_standby,
                  bool            const enable_in_sleep)
-#if defined(ARDUINO_PORTENTA_H33) ||  defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) || defined(ARDUINO_NICLA_VISION)
+#if defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) || defined(ARDUINO_NICLA_VISION)
                  __attribute__ ((error("Erroneous usage of this API can cause board damage.")))
+#elif defined(ARDUINO_PORTENTA_H33)
+                __attribute__ ((warning("Using this API you can turn off ESP32 (WiFi), SE051 (Crypto) and Ethernet PHY. Proceed with caution.")))
 #endif
                  ;
 
