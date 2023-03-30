@@ -65,6 +65,14 @@ public:
   void turnLDO3On       (Ldo3Mode    const mode);
   void turnLDO3Off      (Ldo3Mode    const mode);
 
+  /* SW1 Configuration ********************************************************/
+  void setSw1Voltage       (Sw1Voltage      const sw1_volt);
+  void setSw1VoltageStandby(Sw1Voltage      const sw1_volt_standby);
+  void setSw1VoltageSleep  (Sw1Voltage      const sw1_volt_sleep);
+  void setSw1CurrentLimit  (Sw1CurrentLimit const sw1_current_limit);
+  void turnSw1On           (Sw1Mode         const mode);
+  void turnSw1Off          (Sw1Mode         const mode);
+
   /* SW2 Configuration ********************************************************/
   void setSw2Voltage       (Sw2Voltage      const sw2_volt);
   void setSw2VoltageStandby(Sw2Voltage      const sw2_volt_standby);

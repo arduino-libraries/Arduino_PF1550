@@ -33,6 +33,14 @@
 #define REG_INT_CATEGORY_TEMP_INT_bp            (6)
 #define REG_INT_CATEGORY_MISC_INT_bp            (7)
 
+/* SW1_CTRL1 ******************************************************************/
+#define REG_SW1_CTRL1_SW1_ILIM_mask             (0x03)
+
+/* SW1_CTRL *******************************************************************/
+#define REG_SW1_CTRL_SW1_EN_bp                  (0)
+#define REG_SW1_CTRL_SW1_STBY_EN_bp             (1)
+#define REG_SW1_CTRL_SW1_OMODE_bp               (2)
+
 /* SW2_CTRL *******************************************************************/
 #define REG_SW2_CTRL_SW2_EN_bp                  (0)
 #define REG_SW2_CTRL_SW2_STBY_EN_bp             (1)
