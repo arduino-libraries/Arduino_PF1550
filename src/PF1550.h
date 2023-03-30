@@ -61,6 +61,20 @@ public:
   void configLDO2(Ldo2Voltage const ldo_2_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
   void configLDO3(Ldo3Voltage const ldo_3_volt, bool const enable, bool const enable_in_standby, bool const enable_in_sleep);
 
+  void configSw1(Sw1Voltage      const sw1_volt,
+                 Sw1Voltage      const sw1_volt_standby,
+                 Sw1Voltage      const sw1_volt_sleep,
+                 Sw1CurrentLimit const sw1_current_limit,
+                 bool            const enable,
+                 bool            const enable_in_standby,
+                 bool            const enable_in_sleep)
+#if defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) || defined(ARDUINO_NICLA_VISION)
+                 __attribute__ ((error("Erroneous usage of this API can cause board damage.")))
+#elif defined(ARDUINO_PORTENTA_H33)
+                __attribute__ ((warning("Using this API you can turn off ESP32 (WiFi), SE051 (Crypto) and Ethernet PHY. Proceed with caution.")))
+#endif
+                 ;
+
   void configSw2(Sw2Voltage      const sw2_volt,
                  Sw2Voltage      const sw2_volt_standby,
                  Sw2Voltage      const sw2_volt_sleep,

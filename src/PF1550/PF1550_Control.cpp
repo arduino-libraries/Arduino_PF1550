@@ -118,6 +118,41 @@ void PF1550_Control::turnLDO3Off(Ldo3Mode const mode)
   _io.clrBit(Register::PMIC_LDO3_CTRL, static_cast<uint8_t>(mode));
 }
 
+void PF1550_Control::setSw1Voltage(Sw1Voltage const sw1_volt)
+{
+  writeReg(Register::PMIC_SW1_VOLT, static_cast<uint8_t>(sw1_volt));
+}
+
+void PF1550_Control::setSw1VoltageStandby(Sw1Voltage const sw1_volt_standby)
+{
+  writeReg(Register::PMIC_SW1_STBY_VOLT, static_cast<uint8_t>(sw1_volt_standby));
+}
+
+void PF1550_Control::setSw1VoltageSleep(Sw1Voltage const sw1_volt_sleep)
+{
+  writeReg(Register::PMIC_SW1_SLP_VOLT, static_cast<uint8_t>(sw1_volt_sleep));
+}
+
+void PF1550_Control::setSw1CurrentLimit(Sw1CurrentLimit const sw1_current_limit)
+{
+  uint8_t sw1_ctrl1_reg;
+  _io.readRegister(Register::PMIC_SW1_CTRL1, &sw1_ctrl1_reg);
+  sw1_ctrl1_reg &= ~REG_SW1_CTRL1_SW1_ILIM_mask;
+  sw1_ctrl1_reg |= static_cast<uint8_t>(sw1_current_limit);
+
+  writeReg(Register::PMIC_SW1_CTRL1, sw1_ctrl1_reg);
+}
+
+void PF1550_Control::turnSw1On(Sw1Mode const mode)
+{
+  _io.setBit(Register::PMIC_SW1_CTRL, static_cast<uint8_t>(mode));
+}
+
+void PF1550_Control::turnSw1Off(Sw1Mode const mode)
+{
+  _io.clrBit(Register::PMIC_SW1_CTRL, static_cast<uint8_t>(mode));
+}
+
 void PF1550_Control::setSw2Voltage(Sw2Voltage const sw2_volt)
 {
   writeReg(Register::PMIC_SW2_VOLT, static_cast<uint8_t>(sw2_volt));

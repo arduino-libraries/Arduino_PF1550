@@ -219,6 +219,37 @@ enum class IInputCurrentLimit : uint8_t
   I_1500_mA  = (0x14 << 3),
 };
 
+enum class Sw1Voltage : uint8_t
+{
+  /* Output voltage with DVS disabled (OTP_SWx_DVS_SEL = 1).
+   * This is necessary because otherwise we won't reach the
+   * voltages required by Envie H747/C33 which is 3V1/3V3 for SW1.
+   */
+  V_1_10 = 0x00,
+  V_1_20 = 0x01,
+  V_1_35 = 0x02,
+  V_1_50 = 0x03,
+  V_1_80 = 0x04,
+  V_2_50 = 0x05,
+  V_3_00 = 0x06,
+  V_3_30 = 0x07,
+};
+
+enum class Sw1CurrentLimit : uint8_t
+{
+  I_1_0_A = 0x00,
+  I_1_2_A = 0x01,
+  I_1_5_A = 0x02,
+  I_2_0_A = 0x03,
+};
+
+enum class Sw1Mode : uint8_t
+{
+  Normal  = REG_SW1_CTRL_SW1_EN_bp,
+  Standby = REG_SW1_CTRL_SW1_STBY_EN_bp,
+  Sleep   = REG_SW1_CTRL_SW1_OMODE_bp,
+};
+
 enum class Sw2Voltage : uint8_t
 {
   /* Output voltage with DVS disabled (OTP_SWx_DVS_SEL = 1).
