@@ -2,7 +2,7 @@
  * Read and write some registers from the PF1550 PMIC.
  */
 
-#include <Arduino_PMIC.h>
+#include <Arduino_PF1550.h>
 
 //#define Serial Serial1
 
