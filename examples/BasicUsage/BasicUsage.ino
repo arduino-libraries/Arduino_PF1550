@@ -2,7 +2,7 @@
  * Demonstrate basic library usage.
  */
 
-#include <Arduino_PMIC.h>
+#include <Arduino_PF1550.h>
 
 void setup() {
   PMIC.begin();
