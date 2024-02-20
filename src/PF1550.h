@@ -95,6 +95,8 @@ public:
   /* Actual PMIC event ISR handler with access to member variables */
   inline void onPMICEvent() { _control.onPMICEvent(); }
 
+  PF1550_Control * getControlPointer();
+
 
 private:
   PF1550_Control _control;
