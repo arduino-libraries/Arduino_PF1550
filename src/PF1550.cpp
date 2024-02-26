@@ -178,6 +178,10 @@ void PF1550::configCharger(IFastCharge        const i_fast_charge,
   _control.setInputCurrentLimit (i_input_current_limit);
 }
 
+PF1550_Control * PF1550::getControlPointer(){
+  return &this -> _control;
+}
+
 /******************************************************************************
    EXTERN DEFINITION
  ******************************************************************************/

@@ -56,6 +56,11 @@ void PF1550_Control::setBit(Register const reg, uint8_t const bit_pos)
   _io.setBit(reg, bit_pos);
 }
 
+void PF1550_Control::clrBit(Register const reg, uint8_t const bit_pos)
+{
+  _io.clrBit(reg, bit_pos);
+}
+
 void PF1550_Control::writeReg(Register const reg_addr, uint8_t const val)
 {
   if (_debug) {

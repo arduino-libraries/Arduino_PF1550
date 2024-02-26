@@ -49,6 +49,7 @@ public:
   void debug(Stream& stream);
 
   void setBit  (Register const reg, uint8_t const bit_pos);
+  void clrBit(Register const reg, uint8_t const bit_pos);
   void writeReg(Register const reg_addr, uint8_t const val);
   void readReg (Register const reg_addr, uint8_t * data);
 
