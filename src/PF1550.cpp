@@ -43,12 +43,12 @@ PF1550::PF1550(PF1550_IO & io)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550::begin()
+void PF1550::begin()
 {
   if (_debug) {
     _debug->println("PF1550 begin");
   }
-  return _control.begin();
+  _control.begin();
 }
 
 void PF1550::debug(Stream& stream)

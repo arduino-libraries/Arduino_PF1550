@@ -49,7 +49,7 @@ public:
 
   PF1550(PF1550_IO & io);
 
-  int begin();
+  void begin();
 
   void debug(Stream& stream);
 
