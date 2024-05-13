@@ -45,6 +45,15 @@ protected:
     setBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp);
     /* Allow LED control by software. */
     setBit(Register::CHARGER_LED_CNFG, REG_LED_CNFG_LEDOVRD_bp);
+
+    if(getBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp) == 0){
+      return -1;
+    }
+
+    if(getBit(Register::CHARGER_LED_CNFG, REG_LED_CNFG_LEDOVRD_bp) == 0){
+      return -1;
+    }
+    return 0;
   }
 
 };
