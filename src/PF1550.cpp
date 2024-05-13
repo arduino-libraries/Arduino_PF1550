@@ -45,10 +45,19 @@ PF1550::PF1550(PF1550_IO & io)
 
 int PF1550::begin()
 {
+  if(_initialized) {
+    return 0;
+  }
+
   if (_debug) {
     _debug->println("PF1550 begin");
   }
-  return _control.begin();
+  int returnCode = _control.begin();
+  
+  if (returnCode == 0) {
+    _initialized = true;
+  }
+  return returnCode;
 }
 
 void PF1550::debug(Stream& stream)
