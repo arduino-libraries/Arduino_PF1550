@@ -56,6 +56,7 @@ public:
   void writeRegister(Register const reg_addr, uint8_t const data);
 
   void setBit(Register const reg, uint8_t const bit_pos);
+  uint8_t getBit(Register const reg, uint8_t const bit_pos);
   void clrBit(Register const reg, uint8_t const bit_pos);
 
 

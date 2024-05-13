@@ -84,6 +84,14 @@ void PF1550_IO::setBit(Register const reg, uint8_t const bit_pos)
   writeRegister(reg, reg_val);
 }
 
+uint8_t PF1550_IO::getBit(Register const reg, uint8_t const bit_pos)
+{
+  assert(bit_pos < 8);
+  uint8_t reg_val;
+  readRegister(reg, &reg_val);
+  return (reg_val >> bit_pos) & 1;
+}
+
 void PF1550_IO::clrBit(Register const reg, uint8_t const bit_pos)
 {
   assert(bit_pos < 8);
