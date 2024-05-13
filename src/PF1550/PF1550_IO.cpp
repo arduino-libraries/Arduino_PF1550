@@ -52,7 +52,14 @@ void PF1550_IO::readRegister(Register const reg_addr, uint8_t * data)
 {
   _wire->beginTransmission(_i2c_addr);
   _wire->write(static_cast<uint8_t>(reg_addr));
-  _wire->endTransmission(false); /* No Stop. */
+  
+  /* No Stop. */
+  if(_wire->endTransmission(false) != 0) {
+    if (_debug) {
+      _debug->println("PF1550_IO::readRegister: endTransmission failed");
+    }
+    return;
+  }
 
   _wire->requestFrom(_i2c_addr, 1, true);
   while (_wire->available() < 1) { }
