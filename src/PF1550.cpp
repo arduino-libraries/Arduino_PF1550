@@ -33,8 +33,9 @@
  ******************************************************************************/
 
 PF1550::PF1550(PF1550_IO & io)
-: _control(io),
-  _debug(NULL)
+: _control(io)
+, _initialized(false)
+, _debug(NULL)
 {
 
 }
