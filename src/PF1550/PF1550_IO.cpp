@@ -41,11 +41,11 @@ PF1550_IO::PF1550_IO(arduino::HardwareI2C * wire, uint8_t const i2c_addr)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550_IO::begin()
+void PF1550_IO::begin()
 {
   _wire->begin();
   _wire->setClock(100000);
-  return derived_begin();
+  derived_begin();
 }
 
 void PF1550_IO::readRegister(Register const reg_addr, uint8_t * data)

@@ -45,7 +45,7 @@ public:
   PF1550_Control(PF1550_IO & io);
 
 
-  int begin();
+  void begin();
   void debug(Stream& stream);
 
   void setBit  (Register const reg, uint8_t const bit_pos);

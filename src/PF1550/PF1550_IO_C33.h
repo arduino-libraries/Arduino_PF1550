@@ -39,7 +39,7 @@ public:
 
 
 protected:
-  virtual int derived_begin() override
+  virtual void derived_begin() override
   {
     /* Enable LED. */
     setBit(Register::CHARGER_LED_PWM, REG_LED_PWM_LED_EN_bp);

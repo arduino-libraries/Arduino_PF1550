@@ -40,9 +40,9 @@ PF1550_Control::PF1550_Control(PF1550_IO & io)
    PUBLIC MEMBER FUNCTIONS
  ******************************************************************************/
 
-int PF1550_Control::begin()
+void PF1550_Control::begin()
 {
-  return _io.begin();
+  _io.begin();
 }
 
 void PF1550_Control::debug(Stream& stream)

@@ -50,7 +50,7 @@ public:
   void debug (Stream& stream) { _debug = &stream; }
 
 
-  int begin();
+  void begin();
 
   void readRegister (Register const reg_addr, uint8_t * data);
   void writeRegister(Register const reg_addr, uint8_t const data);
@@ -60,7 +60,7 @@ public:
 
 
 protected:
-  virtual int derived_begin() = 0;
+  virtual void derived_begin() = 0;
 
 private:
   arduino::HardwareI2C * _wire;
