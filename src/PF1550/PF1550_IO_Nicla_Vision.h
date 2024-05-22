@@ -37,7 +37,7 @@ public:
 
 
 protected:
-  virtual int derived_begin() override { }
+  virtual int derived_begin() override { return 0; }
 };
 
 #endif /* PF1550_IO_NICLA_VISION_H_ */

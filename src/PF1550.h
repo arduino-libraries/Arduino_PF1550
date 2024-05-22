@@ -100,6 +100,7 @@ public:
 
 private:
   PF1550_Control _control;
+  bool _initialized;
   Stream* _debug;
 };
 
